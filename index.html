@@ -1,0 +1,1195 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#14100D">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon-180.png">
+<style>[hidden]{display:none!important}img{max-width:100%}</style>
+<title>芋圆 YUYUAN</title>
+<meta name="description" content="芋圆 YUYUAN 是一支 AIGC 创作团队，制作 AI 广告片、电商视觉、社媒短视频与短剧动画。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&display=swap">
+<style>
+/* Layout: a bowl of 仙草 seen through a viewfinder — full-bleed jelly-black ground, content on a
+   centred 1240px column, glossy 芋圆 spheres as the one recurring visual, and every work framed
+   at the aspect ratio it is actually delivered in. Deliberately single-theme (dark, cinematic). */
+:root{
+  color-scheme: dark;
+  /* colour — named after the dessert */
+  --jelly:#14100D;      /* 黑糖 page ground */
+  --jelly-2:#211A15;    /* 焦糖 raised surface */
+  --jelly-3:#372C24;    /* hairlines, borders */
+  --milk:#F3ECE2;       /* 椰奶 primary text */
+  --milk-2:#B5A899;     /* 奶茶 muted text */
+  --taro:#BFA5CF;       /* 芋泥 accent */
+  --taro-ink:#1B1422;   /* text on taro */
+  --sweet:#E8A658;      /* 地瓜 highlight */
+  --matcha:#AEBF86;     /* 抹茶 (team flavour only) */
+  --bean:#D9927F;       /* 红豆 (team flavour only) */
+  /* type */
+  --f-display:"Fraunces","Noto Serif SC","Songti SC",Georgia,serif;
+  --f-cn:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --f-body:"Noto Sans SC","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  --t-xs:12px; --t-sm:14px; --t-base:16px;
+  --t-md:clamp(16px,0.6vw + 12px,19px);
+  --t-lg:clamp(22px,1.4vw + 14px,30px);
+  --t-xl:clamp(32px,3.4vw + 14px,60px);
+  --t-hero:clamp(46px,7.2vw,116px);
+  /* space */
+  --gutter:clamp(16px,4vw,48px);
+  --maxw:1240px;
+  --ease-chewy:cubic-bezier(.3,1.55,.5,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--jelly);color:var(--milk);font-family:var(--f-body);font-size:var(--t-base);line-height:1.7;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.page{overflow-x:clip}
+.wrap{width:100%;max-width:calc(var(--maxw) + 2*var(--gutter));margin-inline:auto;padding-inline:var(--gutter)}
+a{color:inherit}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+::selection{background:var(--taro);color:var(--taro-ink)}
+:focus-visible{outline:2px solid var(--sweet);outline-offset:3px;border-radius:6px}
+.mono{font-family:var(--f-mono);font-size:var(--t-xs);letter-spacing:.14em;text-transform:uppercase;color:var(--milk-2)}
+.skip{position:absolute;left:var(--gutter);top:-60px;z-index:50;background:var(--milk);color:var(--jelly);padding:8px 14px;border-radius:8px;text-decoration:none}
+.skip:focus{top:12px}
+
+/* ---------- glossy ball, the recurring mark ---------- */
+.ball{--c:var(--taro);--s:44px;display:block;flex:none;width:var(--s);height:var(--s);border-radius:32%;
+  background:
+    radial-gradient(circle at 33% 28%, color-mix(in srgb,var(--milk) 90%,transparent) 0 5%, transparent 24%),
+    radial-gradient(circle at 60% 72%, color-mix(in srgb,var(--c) 55%,var(--jelly)) 0 20%, transparent 62%),
+    radial-gradient(circle at 45% 45%, var(--c) 0 42%, color-mix(in srgb,var(--c) 42%,var(--jelly)) 100%);
+  box-shadow:0 12px 26px -10px color-mix(in srgb,var(--c) 70%,transparent), inset 0 -3px 8px color-mix(in srgb,var(--jelly) 40%,transparent);
+  transition:transform .5s var(--ease-chewy)}
+.c-taro{--c:var(--taro)} .c-sweet{--c:var(--sweet)} .c-matcha{--c:var(--matcha)} .c-bean{--c:var(--bean)} .c-milk{--c:var(--milk)}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 22px;border-radius:999px;border:1px solid transparent;font:500 15px/1 var(--f-body);text-decoration:none;cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s,color .2s,transform .35s var(--ease-chewy)}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--taro);color:var(--taro-ink)}
+.btn-primary:hover{background:color-mix(in srgb,var(--taro) 82%,var(--milk))}
+.btn-ghost{background:color-mix(in srgb,var(--jelly) 55%,transparent);color:var(--milk);border-color:var(--jelly-3)}
+.btn-ghost:hover{border-color:var(--milk-2)}
+.btn-sm{height:38px;padding:0 16px;font-size:14px}
+.btn svg{width:16px;height:16px}
+
+/* ---------- header ---------- */
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--jelly) 80%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);border-bottom:1px solid var(--jelly-3)}
+.site-head .wrap{display:flex;align-items:center;gap:16px;min-height:64px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--milk)}
+.brand-mark{flex:none;width:30px;height:30px;fill:var(--taro)}
+.brand-mark rect{transform-box:fill-box;transform-origin:center}
+.brand-mark .tip{fill:var(--sweet)}
+.brand:hover .brand-mark rect{animation:px-pop .55s var(--ease-chewy) both}
+.brand:hover .brand-mark rect:nth-child(2){animation-delay:.04s}.brand:hover .brand-mark rect:nth-child(3){animation-delay:.08s}
+.brand:hover .brand-mark rect:nth-child(4){animation-delay:.14s}.brand:hover .brand-mark rect:nth-child(5){animation-delay:.18s}
+.brand:hover .brand-mark rect:nth-child(6){animation-delay:.26s}
+@keyframes px-pop{0%{transform:scale(.2);opacity:.2}100%{transform:none;opacity:1}}
+.brand-text{display:grid;gap:5px}
+.brand-cn{font-family:var(--f-cn);font-weight:900;font-size:21px;letter-spacing:.06em;line-height:1}
+.brand-en{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.24em;color:var(--milk-2);line-height:1}
+.nav{display:flex;gap:2px;margin-left:auto}
+.nav a{padding:8px 12px;border-radius:999px;color:var(--milk-2);text-decoration:none;font-size:14px;transition:color .2s,background .2s}
+.nav a:hover{color:var(--milk);background:var(--jelly-2)}
+.head-actions{display:flex;align-items:center;gap:8px}
+.lang{display:inline-flex;border:1px solid var(--jelly-3);border-radius:999px;padding:3px;background:var(--jelly)}
+.lang button{border:0;background:transparent;color:var(--milk-2);font:500 12px/1 var(--f-mono);letter-spacing:.06em;height:30px;min-width:38px;padding:0 10px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--milk);color:var(--jelly)}
+@media (max-width:900px){.nav{display:none}.head-actions{margin-left:auto}}
+@media (max-width:420px){.brand-en{display:none}.head-actions .btn{padding:0 14px}}
+
+
+/* ---------- hero: full-bleed reel of real work, "denoise" cuts between clips ---------- */
+.hero{position:relative;isolation:isolate;overflow:hidden;height:clamp(540px,calc(100svh - 64px - 56px),1000px);background:var(--jelly);border-bottom:1px solid var(--jelly-3)}
+.hero-media{position:absolute;inset:0;z-index:-2;background:var(--jelly)}
+.hero-media > *{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-media video{opacity:0;transition:opacity .9s ease}
+.hero-media canvas{opacity:0;transition:opacity .8s ease}
+.hero-media canvas.on{opacity:1}
+.hero.no-gl .hero-media video.cur{opacity:1}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(0deg,color-mix(in srgb,var(--jelly) 88%,transparent) 0%,color-mix(in srgb,var(--jelly) 30%,transparent) 34%,transparent 58%),
+    radial-gradient(120% 90% at 50% 45%,transparent 45%,color-mix(in srgb,var(--jelly) 55%,transparent) 100%)}
+.hero-inner{position:absolute;inset:0;display:grid;grid-template-rows:minmax(0,1fr) auto;padding-inline:var(--gutter)}
+.hero-center{align-self:center;justify-self:center;display:grid;justify-items:center;gap:16px;text-align:center;max-width:980px;padding-top:24px}
+.eyebrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--sweet);box-shadow:0 0 0 4px color-mix(in srgb,var(--sweet) 22%,transparent);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 7px color-mix(in srgb,var(--sweet) 0%,transparent)}}
+.hero-title{font-family:var(--f-cn);font-weight:900;font-size:clamp(44px,7vw,112px);line-height:1.04;letter-spacing:-.005em;text-shadow:0 4px 40px color-mix(in srgb,var(--jelly) 55%,transparent)}
+.hero-title .accent{color:var(--taro)}
+.hero-sub{font-family:var(--f-display);font-style:italic;font-weight:360;font-variation-settings:"SOFT" 100,"opsz" 72;font-size:clamp(19px,2vw,28px);line-height:1.25;color:var(--milk);opacity:.86;text-shadow:0 2px 20px color-mix(in srgb,var(--jelly) 60%,transparent)}
+.hero-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding-top:8px}
+.btn-play{padding-left:10px}
+.btn-play .pi{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--taro-ink);color:var(--taro)}
+.btn-play .pi svg{width:12px;height:12px;margin-left:2px}
+.hero-bottom{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px 28px;padding-block:0 26px}
+.reel-nav{display:flex;align-items:center;gap:6px}
+.reel-nav button{position:relative;width:clamp(36px,5vw,64px);height:28px;border:0;padding:0;background:transparent;cursor:pointer}
+.reel-nav button::before,.reel-nav button i{content:"";position:absolute;left:0;top:50%;height:2px;border-radius:2px;transform:translateY(-50%)}
+.reel-nav button::before{right:0;background:color-mix(in srgb,var(--milk) 28%,transparent)}
+.reel-nav button i{width:calc(var(--p,0) * 100%);background:var(--milk)}
+.reel-nav button[aria-current="true"]::before{background:color-mix(in srgb,var(--milk) 40%,transparent)}
+.now{display:grid;gap:4px;min-width:0}
+.now-title{font-family:var(--f-cn);font-weight:900;font-size:clamp(17px,1.5vw,21px);line-height:1.3}
+.now-meta{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;color:color-mix(in srgb,var(--milk) 75%,transparent);display:flex;flex-wrap:wrap;gap:4px 14px;font-variant-numeric:tabular-nums}
+.now-meta b{font-weight:500;color:var(--milk)}
+.hud{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px 16px;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;color:color-mix(in srgb,var(--milk) 75%,transparent);font-variant-numeric:tabular-nums}
+.hud b{font-weight:500;color:var(--milk)}
+.hud .gen{display:inline-flex;align-items:center;gap:6px;color:var(--sweet)}
+.vf{position:absolute;inset:clamp(12px,2vw,22px);pointer-events:none;z-index:-1}
+.vf i{position:absolute;width:20px;height:20px;border:0 solid color-mix(in srgb,var(--milk) 45%,transparent)}
+.vf i:nth-child(1){top:0;left:0;border-top-width:1px;border-left-width:1px}
+.vf i:nth-child(2){top:0;right:0;border-top-width:1px;border-right-width:1px}
+.vf i:nth-child(3){bottom:0;left:0;border-bottom-width:1px;border-left-width:1px}
+.vf i:nth-child(4){bottom:0;right:0;border-bottom-width:1px;border-right-width:1px}
+@media (max-width:760px){
+  .hero{height:clamp(560px,calc(100svh - 64px - 40px),860px)}
+  .hero-center{align-self:end;padding-bottom:12px}
+  .hud{display:none}
+  .hero-bottom{padding-bottom:22px}
+}
+.hero-title .line{display:block}
+
+/* ---------- sections ---------- */
+.section{padding-block:clamp(76px,10vw,140px);border-bottom:1px solid var(--jelly-3);scroll-margin-top:64px}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px 56px;align-items:end;margin-bottom:clamp(36px,5vw,64px)}
+.sec-title{font-family:var(--f-cn);font-weight:900;font-size:var(--t-xl);line-height:1.12;margin-top:14px}
+.sec-title .en{display:block;font-family:var(--f-display);font-style:italic;font-weight:360;font-variation-settings:"SOFT" 100,"opsz" 60;font-size:.46em;line-height:1.3;color:var(--milk-2);margin-top:12px;letter-spacing:0}
+.sec-intro{color:var(--milk-2);max-width:36em;font-size:var(--t-md)}
+@media (max-width:860px){.sec-head{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- services ---------- */
+.svc-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--jelly-3)}
+.svc{display:grid;grid-template-columns:64px minmax(0,1.05fr) minmax(0,1.35fr) minmax(0,.62fr);gap:18px 36px;padding-block:34px;border-bottom:1px solid var(--jelly-3);align-items:start}
+.svc:hover .ball{transform:scale(1.14) translateY(-3px)}
+.svc h3{font-family:var(--f-cn);font-weight:900;font-size:var(--t-lg);line-height:1.25}
+.svc h3 .mono{display:block;margin-top:10px;font-family:var(--f-mono);font-weight:400;font-size:11px}
+.svc-desc{min-width:0}
+.svc-desc p{color:var(--milk-2)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:16px 0 0;padding:0}
+.tags li{font-size:13px;line-height:1.4;padding:5px 11px;border-radius:999px;background:var(--jelly-2);border:1px solid var(--jelly-3)}
+.svc-meta{display:grid;gap:14px;justify-items:end;text-align:right}
+.svc-meta div{display:grid;gap:2px}
+.svc-meta dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--milk-2)}
+.svc-meta dd{margin:0;font-size:15px;font-variant-numeric:tabular-nums}
+dl{margin:0}
+@media (max-width:960px){
+  .svc{grid-template-columns:52px minmax(0,1fr);gap:14px 20px}
+  .svc .ball{--s:38px}
+  .svc-desc,.svc-meta{grid-column:2}
+  .svc-meta{justify-items:start;text-align:left;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px}
+}
+
+
+/* ---------- works mosaic: every tile is a real piece, autoplaying at its delivery ratio ---------- */
+.works-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{height:36px;padding:0 15px;border-radius:999px;border:1px solid var(--jelly-3);background:transparent;color:var(--milk-2);font:500 14px/1 var(--f-body);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.chip:hover{color:var(--milk);border-color:var(--milk-2)}
+.chip[aria-pressed="true"]{background:var(--milk);border-color:var(--milk);color:var(--jelly)}
+.works-hint{margin-left:auto;font-family:var(--f-mono);font-size:11.5px;color:var(--milk-2)}
+.mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;
+  grid-template-areas:"a a a a a a a a v v v v" "b b b b c c c c v v v v" "m m m m n n n n p p p p"}
+.tile{position:relative;display:block;min-width:0;overflow:hidden;border:0;padding:0;border-radius:12px;background:var(--jelly-2);color:var(--milk);text-align:left;text-decoration:none;cursor:pointer;font:inherit;isolation:isolate;transition:opacity .45s ease,filter .45s ease}
+.tile > video,.tile > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.tile:hover > video,.tile:hover > img,.tile:focus-visible > video,.tile:focus-visible > img{transform:scale(1.035)}
+.tile[data-area="a"]{grid-area:a;aspect-ratio:2.39/1}
+.tile[data-area="v"]{grid-area:v}
+.tile[data-area="b"]{grid-area:b;aspect-ratio:16/9}
+.tile[data-area="c"]{grid-area:c;aspect-ratio:16/9}
+.tile[data-area="m"]{grid-area:m;aspect-ratio:3/4}
+.tile[data-area="n"]{grid-area:n;aspect-ratio:3/4}
+.tile[data-area="p"]{grid-area:p;aspect-ratio:3/4}
+.tile-cap{position:absolute;left:0;right:0;bottom:0;display:grid;gap:5px;padding:48px 16px 14px;background:linear-gradient(0deg,color-mix(in srgb,var(--jelly) 82%,transparent),transparent)}
+.tile-cap strong{font-family:var(--f-cn);font-weight:900;font-size:clamp(16px,1.35vw,20px);line-height:1.3}
+.tile-cap span{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;color:color-mix(in srgb,var(--milk) 78%,transparent);font-variant-numeric:tabular-nums}
+.tile-tag{position:absolute;left:12px;top:12px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;padding:4px 8px;border-radius:6px;background:color-mix(in srgb,var(--jelly) 70%,transparent);color:var(--milk)}
+.tile-go{position:absolute;right:12px;top:12px;display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:6px 10px;border-radius:999px;background:var(--milk);color:var(--jelly);opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .35s var(--ease-chewy)}
+.tile-go svg{width:10px;height:10px}
+.tile:hover .tile-go,.tile:focus-visible .tile-go{opacity:1;transform:none}
+.mosaic.filtering .tile:not(.match){opacity:.18;filter:grayscale(1)}
+@media (max-width:760px){
+  .mosaic{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;grid-template-areas:"a a" "b b" "c c" "v m" "n p"}
+  .tile[data-area="v"]{aspect-ratio:3/4}
+  .tile-go{display:none}
+  .works-hint{display:none}
+}
+
+/* ---------- case studies ---------- */
+.case{padding-block:clamp(76px,10vw,140px) 0;border-bottom:1px solid var(--jelly-3);scroll-margin-top:64px}
+.case-intro{display:grid;justify-items:center;text-align:center;gap:16px;max-width:760px;margin-inline:auto;margin-bottom:clamp(36px,5vw,56px)}
+.case-intro h2{font-family:var(--f-cn);font-weight:900;font-size:var(--t-xl);line-height:1.15}
+.case-intro p{color:var(--milk-2);font-size:var(--t-md)}
+.facts{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:6px 0 0;padding:0;list-style:none}
+.facts li{display:grid;gap:2px;min-width:110px;padding:10px 16px;border:1px solid var(--jelly-3);border-radius:12px;text-align:center}
+.facts b{font-family:var(--f-display);font-weight:600;font-variation-settings:"SOFT" 100,"opsz" 60;font-size:24px;line-height:1.1;font-variant-numeric:tabular-nums}
+.facts span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--milk-2)}
+.expand{position:relative;height:210vh}
+.expand-sticky{position:sticky;top:calc(64px + env(safe-area-inset-top,0px));height:calc(100svh - 64px);display:grid;place-items:center;overflow:hidden}
+.expand-card{--p:0;position:relative;width:100%;height:100%;clip-path:inset(calc((1 - var(--p)) * 16%) calc((1 - var(--p)) * 22%) round calc((1 - var(--p)) * 24px));background:var(--jelly-2)}
+.expand-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.expand-cap{position:absolute;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;padding:clamp(18px,3vw,36px) var(--gutter);background:linear-gradient(0deg,color-mix(in srgb,var(--jelly) 78%,transparent),transparent);transform:translateY(calc((1 - var(--p)) * 24px))}
+.expand-cap p{font-family:var(--f-cn);font-weight:600;font-size:clamp(20px,2.4vw,34px);line-height:1.35;max-width:22em}
+.book{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px;padding-block:clamp(40px,6vw,72px) clamp(76px,10vw,140px);
+  grid-template-areas:"c c c c s1 s1 s1 s1 s2 s2 s2 s2" "c c c c s3 s3 s3 s3 s4 s4 s4 s4" "s5 s5 s5 s5 s5 s5 s5 s5 s6 s6 s6 s6"}
+.book figure{position:relative;margin:0;overflow:hidden;border-radius:10px;background:var(--jelly-2);min-width:0}
+.book img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.book .g-c{grid-area:c}.book .g-1{grid-area:s1;aspect-ratio:16/9}.book .g-2{grid-area:s2;aspect-ratio:16/9}.book .g-3{grid-area:s3;aspect-ratio:16/9}.book .g-4{grid-area:s4;aspect-ratio:16/9}.book .g-5{grid-area:s5}.book .g-6{grid-area:s6;aspect-ratio:3/4}
+.book figcaption{position:absolute;left:10px;bottom:10px;font-family:var(--f-mono);font-size:10.5px;padding:4px 8px;border-radius:6px;background:color-mix(in srgb,var(--jelly) 72%,transparent);color:var(--milk)}
+@media (max-width:760px){
+  .expand{height:170vh}
+  .expand-sticky{height:72svh;top:calc(64px + env(safe-area-inset-top,0px) + 8svh)}
+  .book{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;grid-template-areas:"c c" "s1 s1" "s2 s3" "s4 s5" "s6 s6"}
+  .book .g-c,.book .g-6{aspect-ratio:3/4}.book .g-5,.book .g-2,.book .g-3,.book .g-4{aspect-ratio:4/3}
+}
+@media (prefers-reduced-motion:reduce){
+  .expand{height:auto}
+  .expand-sticky{position:relative;top:auto;height:auto;aspect-ratio:16/9}
+  .expand-card{clip-path:none}
+}
+.looks{display:grid;gap:clamp(48px,7vw,96px);padding-bottom:clamp(76px,10vw,140px)}
+.look{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(16px,3vw,40px);align-items:start}
+.look-video{position:sticky;top:88px;display:grid;gap:12px}
+.look-video .vbox{position:relative;aspect-ratio:3/4;border-radius:14px;overflow:hidden;background:var(--jelly-2)}
+.look-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.look-video h3{font-family:var(--f-cn);font-weight:900;font-size:var(--t-lg);line-height:1.25}
+.look-video p{color:var(--milk-2);font-size:14.5px}
+.look-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.look-grid img{width:100%;height:auto;display:block;border-radius:10px;background:var(--jelly-2)}
+.look-grid .wide{grid-column:span 2}
+@media (max-width:860px){.look{grid-template-columns:minmax(0,1fr)}.look-video{position:relative;top:auto}.look-video .vbox{aspect-ratio:3/4;max-height:70svh}}
+
+/* ---------- services: link each line to its work ---------- */
+.svc-meta a{color:var(--milk);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--taro) 60%,transparent)}
+.svc-meta a:hover{color:var(--taro)}
+
+/* ---------- player ---------- */
+.player{width:min(1180px,94vw);max-height:92svh;padding:0;border:1px solid var(--jelly-3);border-radius:16px;background:var(--jelly);color:var(--milk);overflow:hidden}
+.player::backdrop{background:color-mix(in srgb,var(--jelly) 86%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.player-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:16px 18px}
+.player-head h3{font-family:var(--f-cn);font-weight:900;font-size:20px;line-height:1.3}
+.player-head p{margin-top:4px}
+.player-x{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--jelly-3);background:transparent;color:var(--milk);font-size:20px;line-height:1;cursor:pointer}
+.player-x:hover{border-color:var(--milk-2)}
+.player video{display:block;width:100%;max-height:calc(92svh - 80px);background:var(--jelly);margin-inline:auto}
+.player.tall video{width:auto;max-width:100%;height:calc(92svh - 80px)}
+/* ---------- process ---------- */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-top:1px solid var(--jelly-3)}
+.step{position:relative;display:grid;align-content:start;gap:12px;padding:30px 22px 8px 0}
+.step + .step{padding-left:22px;border-left:1px solid var(--jelly-3)}
+.step-no{font-family:var(--f-display);font-weight:300;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:clamp(44px,4.6vw,64px);line-height:.9;color:var(--taro);font-variant-numeric:lining-nums}
+.step h3{font-family:var(--f-cn);font-weight:900;font-size:20px;line-height:1.3}
+.step h3 .mono{display:block;margin-top:6px;font-size:10.5px}
+.step p{color:var(--milk-2);font-size:14.5px}
+.step .tools{font-family:var(--f-mono);font-size:11.5px;line-height:1.7;color:var(--milk)}
+.step .dur{font-family:var(--f-mono);font-size:11.5px;color:var(--sweet)}
+@media (max-width:1020px){
+  .steps{grid-template-columns:minmax(0,1fr)}
+  .step,.step + .step{grid-template-columns:72px minmax(0,1fr);column-gap:18px;padding:26px 0;border-left:0;border-bottom:1px solid var(--jelly-3)}
+  .step > :not(.step-no){grid-column:2}
+  .step-no{grid-row:1 / span 5}
+}
+.promise{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:clamp(40px,6vw,72px) 0 0;padding:0;list-style:none}
+.promise li{list-style:none;display:grid;grid-template-columns:28px minmax(0,1fr);gap:4px 14px;padding:22px;border-radius:16px;background:var(--jelly-2);border:1px solid var(--jelly-3)}
+.promise svg{width:22px;height:22px;color:var(--matcha);margin-top:3px}
+.promise h3{font-size:16px;font-weight:700;line-height:1.5}
+.promise p{grid-column:2;color:var(--milk-2);font-size:14px}
+.promise ul{margin:0;padding:0;display:contents}
+@media (max-width:860px){.promise{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- team ---------- */
+.bowl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;list-style:none;margin:0;padding:0}
+.flavor{display:grid;align-content:start;gap:12px;padding:26px 22px 24px;border-radius:18px;border:1px solid var(--jelly-3);background:linear-gradient(180deg,var(--jelly-2),var(--jelly))}
+.flavor .ball{--s:56px;margin-bottom:6px}
+.flavor:hover .ball{transform:translateY(-6px) scale(1.06)}
+.flavor h3{font-family:var(--f-cn);font-weight:900;font-size:19px;line-height:1.3}
+.flavor h3 .mono{display:block;margin-top:6px;font-size:10.5px}
+.flavor p{color:var(--milk-2);font-size:14px}
+.flavor .taste{font-family:var(--f-mono);font-size:11px;color:var(--milk-2);border-top:1px dashed var(--jelly-3);padding-top:10px;margin-top:4px}
+@media (max-width:1100px){.bowl{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){.bowl{grid-template-columns:repeat(2,minmax(0,1fr))}.flavor{padding:20px 16px}}
+@media (max-width:420px){.bowl{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- contact ---------- */
+.contact{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,72px);align-items:start}
+.contact-title{font-family:var(--f-cn);font-weight:900;font-size:clamp(36px,5vw,72px);line-height:1.08;margin-top:14px}
+.contact-title .accent{color:var(--sweet)}
+.contact-lede{color:var(--milk-2);font-size:var(--t-md);margin-top:18px;max-width:28em}
+.channels{margin-top:32px;border-top:1px solid var(--jelly-3)}
+.channel{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 16px;padding-block:16px;border-bottom:1px solid var(--jelly-3)}
+.channel dt{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--milk-2)}
+.channel dd{margin:0;display:flex;align-items:center;gap:10px;min-width:0;overflow-wrap:anywhere}
+.copy{border:1px solid var(--jelly-3);background:transparent;color:var(--milk-2);font:500 12px/1 var(--f-mono);height:28px;padding:0 10px;border-radius:999px;cursor:pointer}
+.copy:hover{color:var(--milk);border-color:var(--milk-2)}
+.brief{display:grid;gap:22px;padding:clamp(20px,3vw,34px);border-radius:22px;background:var(--jelly-2);border:1px solid var(--jelly-3)}
+.brief-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.brief-head h3{font-family:var(--f-cn);font-weight:900;font-size:22px}
+fieldset{border:0;margin:0;padding:0;display:grid;gap:10px;min-width:0}
+legend{padding:0;margin-bottom:10px;font-size:14px;font-weight:500}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--jelly-3);background:var(--jelly);color:var(--milk-2);font-size:14px;cursor:pointer;transition:all .2s}
+.opt span:hover{color:var(--milk);border-color:var(--milk-2)}
+.opt input:checked + span{background:var(--taro);border-color:var(--taro);color:var(--taro-ink)}
+.opt input:focus-visible + span{outline:2px solid var(--sweet);outline-offset:2px}
+.field{display:grid;gap:8px}
+.field label{font-size:14px;font-weight:500}
+.field textarea,.field input{width:100%;background:var(--jelly);color:var(--milk);border:1px solid var(--jelly-3);border-radius:12px;padding:12px 14px;font:inherit;font-size:15px}
+.field textarea{min-height:108px;resize:vertical}
+.field textarea::placeholder,.field input::placeholder{color:color-mix(in srgb,var(--milk-2) 70%,var(--jelly))}
+.field textarea:focus,.field input:focus{outline:none;border-color:var(--taro)}
+.brief-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.brief-hint{font-size:13px;color:var(--milk-2)}
+.brief-out{display:grid;gap:12px;padding:16px;border-radius:14px;border:1px dashed color-mix(in srgb,var(--taro) 55%,transparent);background:var(--jelly)}
+.brief-out pre{margin:0;white-space:pre-wrap;overflow-wrap:anywhere;font-family:var(--f-mono);font-size:12.5px;line-height:1.7;color:var(--milk)}
+@media (max-width:900px){.contact{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- footer ---------- */
+.site-foot{padding-block:40px calc(40px + env(safe-area-inset-bottom,0px))}
+.site-foot .wrap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 32px}
+.foot-mark{font-family:var(--f-display);font-weight:700;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:clamp(40px,7vw,88px);line-height:1;letter-spacing:-.02em;color:var(--milk)}
+.foot-mark span{color:var(--taro)}
+.foot-brand{display:flex;align-items:center;gap:clamp(12px,1.6vw,22px)}
+.foot-px{width:clamp(40px,6vw,76px);height:clamp(40px,6vw,76px);fill:var(--taro);flex:none}
+.foot-px .tip{fill:var(--sweet)}
+.foot-links{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:14px}
+.foot-links a{color:var(--milk-2);text-decoration:none}
+.foot-links a:hover{color:var(--milk)}
+.foot-fine{width:100%;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;font-size:12.5px;color:var(--milk-2);border-top:1px solid var(--jelly-3);padding-top:18px}
+
+/* ---------- toast ---------- */
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:60;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--milk);color:var(--jelly);font-size:14px;font-weight:500;padding:10px 16px;border-radius:999px;transition:opacity .25s,transform .35s var(--ease-chewy)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- English mode: Latin headlines in Fraunces, drop duplicated EN sub-labels ---------- */
+html[lang="en"] :is(.hero-title,.sec-title,.contact-title,.svc h3,.step h3,.flavor h3,.work-cap h3,.brief-head h3){font-family:var(--f-display);font-weight:700;font-variation-settings:"SOFT" 100,"opsz" 96;letter-spacing:-.012em}
+html[lang="en"] .hero-title{line-height:1}
+html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{display:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+<a class="skip" href="#main" data-i18n="skip">跳到正文</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="芋圆 YUYUAN">
+      <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="5.5" width="11" height="11" rx="3.8"></rect><rect x="7" y="18.5" width="11" height="11" rx="3.8"></rect><rect x="7" y="31.5" width="11" height="11" rx="3.8"></rect><rect x="20" y="12" width="11" height="11" rx="3.8"></rect><rect x="20" y="25" width="11" height="11" rx="3.8"></rect><rect class="tip" x="33" y="18.5" width="11" height="11" rx="3.8"></rect></svg>
+      <span class="brand-text"><span class="brand-cn">芋圆</span><span class="brand-en">YUYUAN · AIGC</span></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#works" data-i18n="nav.works">作品</a>
+      <a href="#case-songs" data-i18n="nav.cases">案例</a>
+      <a href="#services" data-i18n="nav.services">服务</a>
+      <a href="#process" data-i18n="nav.process">流程</a>
+      <a href="#team" data-i18n="nav.team">团队</a>
+      <a href="#contact" data-i18n="nav.contact">联系</a>
+    </nav>
+    <div class="head-actions">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" id="lang-zh" data-lang="zh" aria-pressed="true">中</button>
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-primary btn-sm" href="#contact" data-i18n="cta.short">聊聊项目</a>
+    </div>
+  </div>
+</header>
+
+
+<main id="main">
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero-media" aria-hidden="true">
+    <img id="hero-poster" src="media/hero-24th.jpg" alt="">
+    <canvas id="hero-canvas"></canvas>
+  </div>
+  <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="hero-inner">
+    <div class="hero-center">
+      <p class="eyebrow mono"><span class="live-dot" aria-hidden="true"></span><span data-i18n="hero.eyebrow">AIGC 创作团队 · 深圳</span></p>
+      <h1 class="hero-title" id="hero-title" data-i18n-html="hero.title"><span class="line">把想象，</span><span class="line">煮成<span class="accent">画面</span>。</span></h1>
+      <p class="hero-sub" data-i18n="hero.sub">We cook ideas into frames.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-play" type="button" id="hero-play"><span class="pi" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg></span><span data-i18n="hero.play">看这支完整版</span></button>
+        <a class="btn btn-ghost" href="#works" data-i18n="cta.works">全部作品</a>
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div class="now">
+        <div class="reel-nav" id="reel-nav" role="group" aria-label="Reel"></div>
+        <p class="now-title" id="now-title">第二十四张</p>
+        <p class="now-meta" id="now-meta"><span>AI 短片</span><span>2.39:1</span><span>2′51″</span></p>
+      </div>
+      <div class="hud" aria-hidden="true">
+        <span class="gen"><span class="live-dot"></span>PLAYING</span>
+        <span>TC <b id="hud-tc">00:00:00:00</b></span>
+        <span><b id="hud-idx">01</b> / <b id="hud-total">04</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="works" aria-labelledby="works-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="mono" data-i18n="works.kicker">Works · 作品</p>
+        <h2 class="sec-title" id="works-title"><span data-i18n="works.title">每一帧，都是现煮的</span><span class="en" data-i18n="works.en">Every frame, freshly made.</span></h2>
+      </div>
+      <p class="sec-intro" data-i18n="works.intro">这里的每一支片子、每一张图都由芋圆用 AI 制作，并按真实交付比例展示：电影感短片 2.39:1，品牌片 16:9，竖屏短视频 9:16，电商主图 3:4。</p>
+    </div>
+    <div class="works-bar">
+      <div class="chips" role="group" aria-label="Filter">
+        <button class="chip" type="button" data-filter="all" aria-pressed="true" data-i18n="cat.all">全部</button>
+        <button class="chip" type="button" data-filter="tvc" aria-pressed="false" data-i18n="cat.tvc">广告片</button>
+        <button class="chip" type="button" data-filter="ecom" aria-pressed="false" data-i18n="cat.ecom">电商视觉</button>
+        <button class="chip" type="button" data-filter="social" aria-pressed="false" data-i18n="cat.social">社媒短视频</button>
+        <button class="chip" type="button" data-filter="story" aria-pressed="false" data-i18n="cat.story">短剧 · 动画 · MV</button>
+      </div>
+      <span class="works-hint" data-i18n="works.hint">点开任意一格看完整版</span>
+    </div>
+    <div class="mosaic" id="mosaic">
+      <button class="tile js-play" type="button" data-area="a" data-cat="story" data-work="24th">
+        <video src="media/tile-24th.mp4" poster="media/tile-24th.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag">2.39:1</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
+        <span class="tile-cap"><strong data-i18n="w.24th">《第二十四张》</strong><span data-i18n="w.24th.meta">AI 短片 · 2′51″ · 青春爱情</span></span>
+      </button>
+      <button class="tile js-play" type="button" data-area="v" data-cat="social" data-work="grwm">
+        <video src="media/v-grwm.mp4" poster="media/v-grwm.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag">9:16</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
+        <span class="tile-cap"><strong data-i18n="w.grwm">暖阳换装</strong><span data-i18n="w.grwm.meta">社媒短视频 · 29″ · AI 模特试穿</span></span>
+      </button>
+      <button class="tile js-play" type="button" data-area="b" data-cat="tvc" data-work="songs">
+        <video src="media/hero-songs.mp4" poster="media/hero-songs.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag">16:9 · 4K</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
+        <span class="tile-cap"><strong data-i18n="w.songs">山下有松「慢一点」</strong><span data-i18n="w.songs.meta">品牌片 · 25″</span></span>
+      </button>
+      <button class="tile js-play" type="button" data-area="c" data-cat="tvc" data-work="boc">
+        <video src="media/hero-boc-sydney.mp4" poster="media/hero-boc-sydney.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag">16:9 · 4K</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
+        <span class="tile-cap"><strong data-i18n="w.boc">中行银联信用卡 × Flywire</strong><span data-i18n="w.boc.meta">推广片 · 1′32″ · 留学缴费</span></span>
+      </button>
+      <button class="tile js-play" type="button" data-area="m" data-cat="ecom" data-work="matcha">
+        <video src="media/v-matcha.mp4" poster="media/v-matcha.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag">3:4</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
+        <span class="tile-cap"><strong data-i18n="w.matcha">AI 模特 · 抹茶绿套装</strong><span data-i18n="w.matcha.meta">电商视觉 · 6 图 + 10″ 上身视频</span></span>
+      </button>
+      <button class="tile js-play" type="button" data-area="n" data-cat="ecom" data-work="ivory">
+        <video src="media/v-ivory.mp4" poster="media/v-ivory.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag">3:4</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
+        <span class="tile-cap"><strong data-i18n="w.ivory">AI 模特 · 米白提花西装</strong><span data-i18n="w.ivory.meta">电商视觉 · 6 图 + 8″ 上身视频</span></span>
+      </button>
+      <a class="tile" href="#case-songs" data-area="p" data-cat="ecom">
+        <img src="img/songs-cover.jpg" alt="" loading="lazy">
+        <span class="tile-tag" data-i18n="w.book.tag">画册 · 7 张</span>
+        <span class="tile-cap"><strong data-i18n="w.book">山下有松 · 秋季画册</strong><span data-i18n="w.book.meta">品牌视觉 · 封面与场景图</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="case" id="case-songs" aria-labelledby="case1-title">
+  <div class="wrap">
+    <div class="case-intro">
+      <p class="mono" data-i18n="case1.kicker">Case 01 · 品牌片 + 画册</p>
+      <h2 id="case1-title" data-i18n="case1.title">山下有松：把今天，慢慢收好</h2>
+      <p data-i18n="case1.desc">一支 25 秒的品牌片，讲一个慢下来的下午：写信、逗猫、路过街边弹吉他的人。同样的光线和质感延续到秋季画册，封面、场景图和单品图一起交付。</p>
+      <ul class="facts">
+        <li><b>25″</b><span data-i18n="case1.f1">品牌片</span></li>
+        <li><b>4K</b><span data-i18n="case1.f2">16:9 母版</span></li>
+        <li><b>7</b><span data-i18n="case1.f3">张画册图</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="expand" id="expand-songs">
+    <div class="expand-sticky">
+      <div class="expand-card" id="expand-card">
+        <video src="media/hero-songs.mp4" poster="media/hero-songs.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <div class="expand-cap">
+          <p data-i18n="case1.cap">「把今天，慢慢收好。」</p>
+          <button class="btn btn-primary btn-play js-play" type="button" data-work="songs"><span class="pi" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg></span><span data-i18n="hero.play">看这支完整版</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="book">
+      <figure class="g-c"><img src="img/songs-cover.jpg" alt="山下有松秋季画册封面" loading="lazy"><figcaption data-i18n="book.cover">VOL.01 · 封面</figcaption></figure>
+      <figure class="g-1"><img src="img/songs-1.jpg" alt="" loading="lazy"></figure>
+      <figure class="g-2"><img src="img/songs-2.jpg" alt="" loading="lazy"></figure>
+      <figure class="g-3"><img src="img/songs-3.jpg" alt="" loading="lazy"></figure>
+      <figure class="g-4"><img src="img/songs-4.jpg" alt="" loading="lazy"></figure>
+      <figure class="g-5"><img src="img/songs-5.jpg" alt="" loading="lazy"></figure>
+      <figure class="g-6"><img src="img/songs-6.jpg" alt="" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<section class="case" id="case-model" aria-labelledby="case2-title">
+  <div class="wrap">
+    <div class="case-intro">
+      <p class="mono" data-i18n="case2.kicker">Case 02 · AI 电商视觉</p>
+      <h2 id="case2-title" data-i18n="case2.title">一件衣服，不用再约拍</h2>
+      <p data-i18n="case2.desc">模特、场景、光线和上身视频全部由 AI 生成。同一件衣服可以换模特、换场景，一次出齐主图、细节图和上身视频，适合上新快、SKU 多的店铺。</p>
+      <ul class="facts">
+        <li><b>2</b><span data-i18n="case2.f1">套服装</span></li>
+        <li><b>12</b><span data-i18n="case2.f2">张主图与细节图</span></li>
+        <li><b>2</b><span data-i18n="case2.f3">条上身视频</span></li>
+      </ul>
+    </div>
+    <div class="looks">
+      <article class="look">
+        <div class="look-video">
+          <div class="vbox"><video src="media/v-matcha.mp4" poster="media/v-matcha.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video></div>
+          <h3 data-i18n="look1.name">抹茶绿套装</h3>
+          <p data-i18n="look1.desc">拱廊、午后斜光和树影。正背面全身、坐姿、半身和领口钻饰特写，再配一条 10 秒上身视频。</p>
+        </div>
+        <div class="look-grid">
+          <img src="img/matcha-1.jpg" width="1052" height="1400" alt="" loading="lazy">
+          <img src="img/matcha-2.jpg" width="1052" height="1400" alt="" loading="lazy">
+          <img src="img/matcha-3.jpg" width="1400" height="1050" alt="" loading="lazy">
+          <img src="img/matcha-4.jpg" width="1400" height="1050" alt="" loading="lazy">
+          <img src="img/matcha-5.jpg" width="1400" height="1050" alt="" loading="lazy">
+          <img src="img/matcha-6.jpg" width="1400" height="1050" alt="" loading="lazy">
+        </div>
+      </article>
+      <article class="look">
+        <div class="look-video">
+          <div class="vbox"><video src="media/v-ivory.mp4" poster="media/v-ivory.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video></div>
+          <h3 data-i18n="look2.name">米白提花西装</h3>
+          <p data-i18n="look2.desc">白墙棚拍质感。提花面料特写、背面、全身和几种站姿，再配一条 8 秒上身视频。</p>
+        </div>
+        <div class="look-grid">
+          <img src="img/ivory-1.jpg" width="1052" height="1400" alt="" loading="lazy">
+          <img src="img/ivory-2.jpg" width="1052" height="1400" alt="" loading="lazy">
+          <img src="img/ivory-3.jpg" width="1050" height="1400" alt="" loading="lazy">
+          <img src="img/ivory-4.jpg" width="1050" height="1400" alt="" loading="lazy">
+          <img src="img/ivory-5.jpg" width="1050" height="1400" alt="" loading="lazy">
+          <img src="img/ivory-6.jpg" width="1050" height="1400" alt="" loading="lazy">
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+<section class="section" id="services" aria-labelledby="services-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="mono" data-i18n="services.kicker">Services · 服务</p>
+        <h2 class="sec-title" id="services-title"><span data-i18n="services.title">四种口味，按需搭配</span><span class="en" data-i18n="services.en">Four flavours, mixed to order.</span></h2>
+      </div>
+      <p class="sec-intro" data-i18n="services.intro">每个项目都由导演先定方向，再用 AI 提速和放量。你拿到的是能直接投放的成片和素材，而不是一堆随机生成的图。</p>
+    </div>
+    <ul class="svc-list">
+      <li class="svc">
+        <span class="ball c-taro" aria-hidden="true"></span>
+        <h3><span data-i18n="svc1.name">AI 广告片 / 品牌 TVC</span><span class="mono">Brand film · TVC</span></h3>
+        <div class="svc-desc">
+          <p data-i18n="svc1.desc">从创意脚本、分镜到成片，完成品牌宣传片、新品广告和节点 campaign。实拍成本高或拍不出来的镜头，用生成式影像做出来。</p>
+          <ul class="tags"><li data-i18n="svc1.t1">创意脚本与分镜</li><li data-i18n="svc1.t2">15s / 30s / 60s 成片</li><li data-i18n="svc1.t3">横竖版多尺寸</li><li data-i18n="svc1.t4">配乐与配音</li></ul>
+        </div>
+        <dl class="svc-meta">
+          <div><dt data-i18n="meta.cycle">参考周期</dt><dd data-i18n="svc1.cycle">7–15 个工作日</dd></div>
+          <div><dt data-i18n="meta.format">常用规格</dt><dd>16:9 · 9:16 · 4K</dd></div>
+          <div><dt data-i18n="meta.work">代表作</dt><dd><a href="#works" class="js-play" data-work="songs" data-i18n="w.songs">山下有松「慢一点」</a></dd></div>
+        </dl>
+      </li>
+      <li class="svc">
+        <span class="ball c-sweet" aria-hidden="true"></span>
+        <h3><span data-i18n="svc2.name">AI 电商视觉</span><span class="mono">E-commerce visuals</span></h3>
+        <div class="svc-desc">
+          <p data-i18n="svc2.desc">商品场景图、AI 模特上身、主图与详情页、亚马逊 A+ 页面。同一件商品建一次模，就能批量出几十种场景和多语言版本，适合上新快、SKU 多的店铺。</p>
+          <ul class="tags"><li data-i18n="svc2.t1">场景图与白底图</li><li data-i18n="svc2.t2">AI 模特试穿</li><li data-i18n="svc2.t3">主图 · 详情页 · A+</li><li data-i18n="svc2.t4">多语言版本</li></ul>
+        </div>
+        <dl class="svc-meta">
+          <div><dt data-i18n="meta.cycle">参考周期</dt><dd data-i18n="svc2.cycle">3–7 个工作日</dd></div>
+          <div><dt data-i18n="meta.format">常用规格</dt><dd>1:1 · 3:4 · A+ 970×600</dd></div>
+          <div><dt data-i18n="meta.work">代表作</dt><dd><a href="#case-model" data-i18n="w.matcha">AI 模特 · 抹茶绿套装</a></dd></div>
+        </dl>
+      </li>
+      <li class="svc">
+        <span class="ball c-matcha" aria-hidden="true"></span>
+        <h3><span data-i18n="svc3.name">社媒短视频</span><span class="mono">Social content</span></h3>
+        <div class="svc-desc">
+          <p data-i18n="svc3.desc">面向抖音、小红书、TikTok 的内容批量生产：选题、脚本、数字人口播、AI 混剪，按月交付内容包，也可以帮你搭建账号矩阵。</p>
+          <ul class="tags"><li data-i18n="svc3.t1">选题与脚本</li><li data-i18n="svc3.t2">数字人口播</li><li data-i18n="svc3.t3">AI 混剪</li><li data-i18n="svc3.t4">账号矩阵搭建</li></ul>
+        </div>
+        <dl class="svc-meta">
+          <div><dt data-i18n="meta.cycle">参考周期</dt><dd data-i18n="svc3.cycle">按月交付</dd></div>
+          <div><dt data-i18n="meta.format">常用规格</dt><dd>9:16 · 3:4 · 1080p</dd></div>
+          <div><dt data-i18n="meta.work">代表作</dt><dd><a href="#works" class="js-play" data-work="grwm" data-i18n="w.grwm">暖阳换装</a></dd></div>
+        </dl>
+      </li>
+      <li class="svc">
+        <span class="ball c-bean" aria-hidden="true"></span>
+        <h3><span data-i18n="svc4.name">AI 短剧 / 动画 / MV</span><span class="mono">Series · Animation · MV</span></h3>
+        <div class="svc-desc">
+          <p data-i18n="svc4.desc">角色设定、分集剧本、分镜到成片。我们用角色一致性工作流，让同一个角色在几十个镜头里保持同一张脸、同一身衣服。</p>
+          <ul class="tags"><li data-i18n="svc4.t1">角色与世界观设定</li><li data-i18n="svc4.t2">漫剧 · 动画短片</li><li data-i18n="svc4.t3">MV · 音乐视频</li><li data-i18n="svc4.t4">角色一致性</li></ul>
+        </div>
+        <dl class="svc-meta">
+          <div><dt data-i18n="meta.cycle">参考周期</dt><dd data-i18n="svc4.cycle">按集评估</dd></div>
+          <div><dt data-i18n="meta.format">常用规格</dt><dd>9:16 · 2.39:1</dd></div>
+          <div><dt data-i18n="meta.work">代表作</dt><dd><a href="#works" class="js-play" data-work="24th" data-i18n="w.24th">《第二十四张》</a></dd></div>
+        </dl>
+      </li>
+    </ul>
+  </div>
+</section>
+<section class="section" id="process" aria-labelledby="process-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="mono" data-i18n="process.kicker">Process · 流程</p>
+        <h2 class="sec-title" id="process-title"><span data-i18n="process.title">从一句话到成片</span><span class="en" data-i18n="process.en">From a sentence to a finished cut.</span></h2>
+      </div>
+      <p class="sec-intro" data-i18n="process.intro">以一条 30 秒广告片为例。每一步结束都有确认节点，方向不对就在早期改，不会等到成片再推翻。</p>
+    </div>
+    <ol class="steps">
+      <li class="step"><span class="step-no">01</span><h3><span data-i18n="s1.name">需求沟通</span><span class="mono">Brief</span></h3><p data-i18n="s1.desc">聊清楚目标、受众、投放渠道、预算和时间，确认交付清单。</p><span class="tools" data-i18n="s1.tools">需求单 · 参考片</span><span class="dur" data-i18n="s1.dur">约 1 天</span></li>
+      <li class="step"><span class="step-no">02</span><h3><span data-i18n="s2.name">创意与分镜</span><span class="mono">Concept</span></h3><p data-i18n="s2.desc">写脚本、画分镜、定风格参考和情绪板，确认后再开始生成。</p><span class="tools">Midjourney · 即梦 · Figma</span><span class="dur" data-i18n="s2.dur">2–3 天</span></li>
+      <li class="step"><span class="step-no">03</span><h3><span data-i18n="s3.name">生成与筛选</span><span class="mono">Generate</span></h3><p data-i18n="s3.desc">用 ComfyUI 工作流批量生成，锁定角色和商品的一致性，逐个镜头挑选。</p><span class="tools">Flux · ComfyUI · Kling · Runway</span><span class="dur" data-i18n="s3.dur">3–7 天</span></li>
+      <li class="step"><span class="step-no">04</span><h3><span data-i18n="s4.name">精修与合成</span><span class="mono">Finish</span></h3><p data-i18n="s4.desc">合成、调色、补帧放大、配音配乐和字幕，让成片经得起大屏。</p><span class="tools">After Effects · DaVinci · Topaz · Suno</span><span class="dur" data-i18n="s4.dur">2–4 天</span></li>
+      <li class="step"><span class="step-no">05</span><h3><span data-i18n="s5.name">交付与复盘</span><span class="mono">Deliver</span></h3><p data-i18n="s5.desc">按平台导出多尺寸版本，加好 AIGC 标识，归档工程文件，投放后一起看数据。</p><span class="tools" data-i18n="s5.tools">多尺寸导出 · 源文件归档</span><span class="dur" data-i18n="s5.dur">投放后持续</span></li>
+    </ol>
+    <ul class="promise">
+      <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 12.5l3 3 6-6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><h3 data-i18n="p1.name">商用授权</h3><p data-i18n="p1.desc">只用可商用的模型和素材，交付时附上素材来源清单。</p></li>
+      <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 12.5l3 3 6-6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><h3 data-i18n="p2.name">依规标识</h3><p data-i18n="p2.desc">按《人工智能生成合成内容标识办法》添加显式和隐式标识，平台审核更顺利。</p></li>
+      <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 12.5l3 3 6-6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><h3 data-i18n="p3.name">肖像与声音授权</h3><p data-i18n="p3.desc">数字人和配音只使用获得授权的肖像与声音，不仿冒真人。</p></li>
+    </ul>
+  </div>
+</section>
+<section class="section" id="team" aria-labelledby="team-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="mono" data-i18n="team.kicker">Team · 团队</p>
+        <h2 class="sec-title" id="team-title"><span data-i18n="team.title">一碗芋圆，五种口味</span><span class="en" data-i18n="team.en">One bowl, five flavours.</span></h2>
+      </div>
+      <p class="sec-intro" data-i18n="team.intro">团队小而全，从创意到交付不外包。每个项目都有一位导演和一位制片跟到底，制片是你唯一的对接人。</p>
+    </div>
+    <ul class="bowl">
+      <li class="flavor"><span class="ball c-taro" aria-hidden="true"></span><h3><span data-i18n="r1.name">导演 / 创意</span><span class="mono">Director</span></h3><p data-i18n="r1.desc">定故事、定镜头、定审美，对最终画面负责。</p><span class="taste" data-i18n="r1.taste">芋泥味 · 主心骨</span></li>
+      <li class="flavor"><span class="ball c-sweet" aria-hidden="true"></span><h3><span data-i18n="r2.name">AI 视觉设计</span><span class="mono">Visual artist</span></h3><p data-i18n="r2.desc">写提示词、训练风格模型、出关键帧，是画面的第一双手。</p><span class="taste" data-i18n="r2.taste">地瓜味 · 甜而稳</span></li>
+      <li class="flavor"><span class="ball c-matcha" aria-hidden="true"></span><h3><span data-i18n="r3.name">工作流工程</span><span class="mono">Pipeline</span></h3><p data-i18n="r3.desc">搭 ComfyUI 工作流和自动化脚本，把一次出好图变成每次都出好图。</p><span class="taste" data-i18n="r3.taste">抹茶味 · 头脑清醒</span></li>
+      <li class="flavor"><span class="ball c-bean" aria-hidden="true"></span><h3><span data-i18n="r4.name">剪辑后期</span><span class="mono">Editor</span></h3><p data-i18n="r4.desc">剪辑、合成、调色、声音，把素材变成能投放的成片。</p><span class="taste" data-i18n="r4.taste">红豆味 · 有嚼劲</span></li>
+      <li class="flavor"><span class="ball c-milk" aria-hidden="true"></span><h3><span data-i18n="r5.name">制片</span><span class="mono">Producer</span></h3><p data-i18n="r5.desc">管排期、预算和沟通，让每个项目按时出锅。</p><span class="taste" data-i18n="r5.taste">椰奶味 · 负责兜底</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="contact" aria-labelledby="contact-title">
+  <div class="wrap contact">
+    <div>
+      <p class="mono" data-i18n="contact.kicker">Contact · 联系</p>
+      <h2 class="contact-title" id="contact-title" data-i18n-html="contact.title">有个画面<br>在你脑子里？<br><span class="accent">说给我们听。</span></h2>
+      <p class="contact-lede" data-i18n="contact.lede">填好右边的需求单，复制发到我们的邮箱，我们会在一个工作日内回复。</p>
+      <dl class="channels">
+        <div class="channel"><dt data-i18n="contact.email">邮箱</dt><dd><span id="email-text">hello@yuyuan.example</span><button class="copy" type="button" data-copy="email-text" data-i18n="copy">复制</button></dd></div>
+        <div class="channel"><dt data-i18n="contact.city">城市</dt><dd data-i18n="contact.cityv">深圳 · 支持远程协作</dd></div>
+        <div class="channel"><dt data-i18n="contact.lang">语言</dt><dd>中文 · English</dd></div>
+      </dl>
+    </div>
+    <form class="brief" id="brief" novalidate>
+      <div class="brief-head"><h3 data-i18n="brief.title">项目需求单</h3><span class="mono" data-i18n="brief.time">约 1 分钟</span></div>
+      <fieldset>
+        <legend data-i18n="brief.type">想做什么？（可多选）</legend>
+        <div class="opts">
+          <label class="opt"><input type="checkbox" name="type" id="bt-tvc" value="svc1.name" checked><span data-i18n="svc1.name">AI 广告片 / 品牌 TVC</span></label>
+          <label class="opt"><input type="checkbox" name="type" id="bt-ecom" value="svc2.name"><span data-i18n="svc2.name">AI 电商视觉</span></label>
+          <label class="opt"><input type="checkbox" name="type" id="bt-social" value="svc3.name"><span data-i18n="svc3.name">社媒短视频</span></label>
+          <label class="opt"><input type="checkbox" name="type" id="bt-story" value="svc4.name"><span data-i18n="svc4.name">AI 短剧 / 动画 / MV</span></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend data-i18n="brief.budget">预算范围</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="budget" id="bb-1" value="b1"><span data-i18n="b1">¥1 万以内</span></label>
+          <label class="opt"><input type="radio" name="budget" id="bb-2" value="b2" checked><span data-i18n="b2">¥1–5 万</span></label>
+          <label class="opt"><input type="radio" name="budget" id="bb-3" value="b3"><span data-i18n="b3">¥5–20 万</span></label>
+          <label class="opt"><input type="radio" name="budget" id="bb-4" value="b4"><span data-i18n="b4">¥20 万以上</span></label>
+          <label class="opt"><input type="radio" name="budget" id="bb-5" value="b5"><span data-i18n="b5">还不确定</span></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend data-i18n="brief.when">希望什么时候上线？</legend>
+        <div class="opts">
+          <label class="opt"><input type="radio" name="when" id="bw-1" value="d1"><span data-i18n="d1">2 周内</span></label>
+          <label class="opt"><input type="radio" name="when" id="bw-2" value="d2" checked><span data-i18n="d2">1 个月内</span></label>
+          <label class="opt"><input type="radio" name="when" id="bw-3" value="d3"><span data-i18n="d3">1–3 个月</span></label>
+          <label class="opt"><input type="radio" name="when" id="bw-4" value="d4"><span data-i18n="d4">不着急</span></label>
+        </div>
+      </fieldset>
+      <div class="field"><label for="brief-brand" data-i18n="brief.brand">品牌 / 公司</label><input id="brief-brand" name="brand" type="text" autocomplete="organization" data-i18n-ph="brief.brandPh" placeholder="例如：一个主做北美市场的户外品牌"></div>
+      <div class="field"><label for="brief-note" data-i18n="brief.note">说说你的想法</label><textarea id="brief-note" name="note" data-i18n-ph="brief.notePh" placeholder="想要的感觉、参考链接、投放平台……写几句就行"></textarea></div>
+      <div class="brief-actions"><button class="btn btn-primary" type="submit" id="brief-submit" data-i18n="brief.submit">生成需求单</button><span class="brief-hint" data-i18n="brief.hint">生成后一键复制，发到我们的邮箱。</span></div>
+      <div class="brief-out" id="brief-out" hidden aria-live="polite"><pre id="brief-text"></pre><div><button class="btn btn-ghost btn-sm" type="button" id="brief-copy" data-i18n="brief.copy">复制需求单</button></div></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-brand" aria-hidden="true"><svg class="foot-px" viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="5.5" width="11" height="11" rx="3.8"></rect><rect x="7" y="18.5" width="11" height="11" rx="3.8"></rect><rect x="7" y="31.5" width="11" height="11" rx="3.8"></rect><rect x="20" y="12" width="11" height="11" rx="3.8"></rect><rect x="20" y="25" width="11" height="11" rx="3.8"></rect><rect class="tip" x="33" y="18.5" width="11" height="11" rx="3.8"></rect></svg><div class="foot-mark">yuyuan<span>.</span></div></div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#works" data-i18n="nav.works">作品</a>
+      <a href="#case-songs" data-i18n="nav.cases">案例</a>
+      <a href="#services" data-i18n="nav.services">服务</a>
+      <a href="#process" data-i18n="nav.process">流程</a>
+      <a href="#team" data-i18n="nav.team">团队</a>
+      <a href="#contact" data-i18n="nav.contact">联系</a>
+    </nav>
+    <div class="foot-fine"><span data-i18n="foot.copy">© 2026 芋圆 YUYUAN · 深圳</span><span data-i18n="foot.note">站内作品均由芋圆团队使用 AI 制作。</span></div>
+  </div>
+</footer>
+<dialog class="player" id="player" aria-labelledby="player-title">
+  <div class="player-head"><div><h3 id="player-title"></h3><p class="mono" id="player-meta"></p></div><button class="player-x" type="button" id="player-close" aria-label="Close">×</button></div>
+  <video id="player-video" controls playsinline preload="none"></video>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script>
+/* ---------- 中 / EN ---------- */
+(function(){
+  const EN = {
+    "skip":"Skip to content",
+    "nav.services":"Services","nav.works":"Work","nav.cases":"Cases","nav.process":"Process","nav.team":"Team","nav.contact":"Contact",
+    "cta.short":"Start a project","cta.long":"Tell us about your project","cta.works":"All work","hero.play":"Watch the full piece",
+    "hero.eyebrow":"AIGC creative studio · Shenzhen",
+    "hero.title":'<span class="line">We cook ideas</span><span class="line">into <span class="accent">frames</span>.</span>',
+    "hero.sub":"Yuyuan means taro balls: soft, chewy, made by hand.",
+    "hero.lede":"Yuyuan is an AIGC creative team. We plug directing, art and editing experience into generative-AI pipelines to make brand films, e-commerce visuals, social video and animated series.",
+    "services.kicker":"Services","services.title":"Four flavours, mixed to order","services.en":"Order one, or the whole bowl.",
+    "services.intro":"A director sets the direction on every project, and AI brings the speed and volume. You get finished films and assets ready to run, not a pile of random generations.",
+    "meta.cycle":"Typical timeline","meta.format":"Common formats",
+    "svc1.name":"AI brand film / TVC",
+    "svc1.desc":"Script, storyboard and final cut for brand films, product launches and seasonal campaigns. Shots that are too costly or impossible to film get generated instead.",
+    "svc1.t1":"Script & storyboard","svc1.t2":"15s / 30s / 60s cuts","svc1.t3":"Landscape & vertical","svc1.t4":"Music & voice-over","svc1.cycle":"7–15 working days",
+    "svc2.name":"AI e-commerce visuals",
+    "svc2.desc":"Lifestyle scenes, AI models wearing your product, main images, detail pages and Amazon A+ content. Model a product once, then render dozens of scenes and language versions. Built for stores that launch fast and carry many SKUs.",
+    "svc2.t1":"Lifestyle & white-background shots","svc2.t2":"AI model try-on","svc2.t3":"Main image · detail page · A+","svc2.t4":"Multi-language versions","svc2.cycle":"3–7 working days",
+    "svc3.name":"Social video",
+    "svc3.desc":"Content at volume for Douyin, Xiaohongshu and TikTok: topics, scripts, digital-human presenters and AI edits, delivered as a monthly content pack. We can also set up your account matrix.",
+    "svc3.t1":"Topics & scripts","svc3.t2":"Digital-human presenters","svc3.t3":"AI edits","svc3.t4":"Account matrix setup","svc3.cycle":"Monthly packs",
+    "svc4.name":"AI series / animation / MV",
+    "svc4.desc":"Characters, episode scripts, storyboards and final cuts. Our character-consistency pipeline keeps the same face and the same outfit across dozens of shots.",
+    "svc4.t1":"Characters & world-building","svc4.t2":"Short series · animated shorts","svc4.t3":"Music videos","svc4.t4":"Character consistency","svc4.cycle":"Quoted per episode",
+    "works.kicker":"Work","works.title":"Every frame, freshly made","works.en":"Shown at the ratio each piece ships in.",
+    "works.intro":"Every film and image here was made by Yuyuan with AI, shown at its real delivery ratio: 2.39:1 for cinematic shorts, 16:9 for brand films, 9:16 for vertical video, 3:4 for product images.",
+    "works.hint":"Open any tile to watch the full piece",
+    "cat.all":"All","cat.tvc":"Brand film","cat.ecom":"E-commerce","cat.social":"Social video","cat.story":"Series · Animation · MV",
+    "tile.play":"Full piece",
+    "w.24th":"The 24th Shot","w.24th.meta":"AI short film · 2′51″ · Coming of age",
+    "w.grwm":"Golden Hour Try-On","w.grwm.meta":"Social video · 29″ · AI model try-on",
+    "w.songs":"Shanxia Yousong: Take It Slow","w.songs.meta":"Brand film · 25″",
+    "w.boc":"BOC UnionPay Credit Card × Flywire","w.boc.meta":"Promo film · 1′32″ · Study-abroad payments",
+    "w.matcha":"AI Model · Matcha Tweed Set","w.matcha.meta":"E-commerce · 6 images + 10″ try-on video",
+    "w.ivory":"AI Model · Ivory Jacquard Suit","w.ivory.meta":"E-commerce · 6 images + 8″ try-on video",
+    "w.book":"Shanxia Yousong · Autumn Lookbook","w.book.meta":"Brand visuals · cover and scenes","w.book.tag":"Lookbook · 7",
+    "case1.kicker":"Case 01 · Brand film + lookbook","case1.title":"Shanxia Yousong: keep today, slowly",
+    "case1.desc":"A 25-second brand film about a slow afternoon: writing a note, greeting a cat, passing a street guitarist. The same light and texture carry into the autumn lookbook, delivered with a cover, scene shots and product shots.",
+    "case1.f1":"Brand film","case1.f2":"16:9 master","case1.f3":"Lookbook images","case1.cap":"“Keep today, slowly.”","book.cover":"VOL.01 · Cover",
+    "case2.kicker":"Case 02 · AI e-commerce visuals","case2.title":"One garment, no photo shoot",
+    "case2.desc":"Models, sets, light and try-on videos are all generated with AI. The same garment can get a new model or a new set, so main images, detail shots and try-on video arrive together. Built for stores that launch fast and carry many SKUs.",
+    "case2.f1":"Outfits","case2.f2":"Main and detail images","case2.f3":"Try-on videos",
+    "look1.name":"Matcha tweed set","look1.desc":"Arcades, low afternoon sun and leaf shadows. Front and back full-length, seated, half-length and a close-up of the jewelled neckline, plus a 10-second try-on video.",
+    "look2.name":"Ivory jacquard suit","look2.desc":"A clean white-wall studio look. Jacquard close-up, back view, full-length and several poses, plus an 8-second try-on video.",
+    "meta.work":"Signature piece",
+    "process.kicker":"Process","process.title":"From one sentence to a finished cut","process.en":"Five steps, with a sign-off after each.",
+    "process.intro":"Take a 30-second ad as the example. Each step ends with a sign-off, so a wrong turn gets fixed early instead of after the final cut.",
+    "s1.name":"Brief","s1.desc":"Goals, audience, channels, budget and timing, ending in an agreed list of deliverables.","s1.tools":"Brief form · reference films","s1.dur":"About 1 day",
+    "s2.name":"Concept & storyboard","s2.desc":"Script, storyboard, style references and mood board, all signed off before generation starts.","s2.dur":"2–3 days",
+    "s3.name":"Generate & select","s3.desc":"Batch generation through ComfyUI pipelines, with characters and products locked for consistency, then shot-by-shot selection.","s3.dur":"3–7 days",
+    "s4.name":"Finish","s4.desc":"Compositing, grading, interpolation and upscaling, music, voice and subtitles, so the cut holds up on a big screen.","s4.dur":"2–4 days",
+    "s5.name":"Deliver & review","s5.desc":"Exports for every platform and size, AI-content labels applied, project files archived, and a look at the numbers after launch.","s5.tools":"Multi-format export · source archive","s5.dur":"Ongoing after launch",
+    "p1.name":"Licensed for commercial use","p1.desc":"Only commercially licensed models and assets, with a source list delivered alongside the files.",
+    "p2.name":"Labelled to the rules","p2.desc":"Explicit and implicit AI-content labels applied under China’s rules for labelling AI-generated content, so platform review goes smoothly.",
+    "p3.name":"Licensed likeness and voice","p3.desc":"Digital humans and voice-overs use only licensed likenesses and voices. We never imitate real people.",
+    "team.kicker":"Team","team.title":"One bowl, five flavours","team.en":"Small team, nothing outsourced.",
+    "team.intro":"Everything from concept to delivery stays in-house. Every project has one director and one producer from start to finish, and the producer is your single point of contact.",
+    "r1.name":"Director","r1.desc":"Owns the story, the shots and the taste, and answers for the final image.","r1.taste":"Taro · the backbone",
+    "r2.name":"AI visual artist","r2.desc":"Writes prompts, trains style models and makes key frames. The first pair of hands on every image.","r2.taste":"Sweet potato · steady",
+    "r3.name":"Pipeline engineer","r3.desc":"Builds ComfyUI workflows and automation, so one good result becomes a repeatable one.","r3.taste":"Matcha · clear-headed",
+    "r4.name":"Editor","r4.desc":"Editing, compositing, grading and sound that turn raw generations into a cut ready to run.","r4.taste":"Red bean · chewy",
+    "r5.name":"Producer","r5.desc":"Runs schedule, budget and communication so every project comes out of the pot on time.","r5.taste":"Coconut milk · holds it together",
+    "contact.kicker":"Contact",
+    "contact.title":'Got a picture<br>in your head?<br><span class="accent">Tell us about it.</span>',
+    "contact.lede":"Fill in the brief, copy it into an email to us, and we’ll reply within one working day.",
+    "contact.email":"Email","copy":"Copy","contact.city":"City","contact.cityv":"Shenzhen · remote-friendly","contact.lang":"Languages",
+    "brief.title":"Project brief","brief.time":"About 1 minute","brief.type":"What do you need? (pick any)","brief.budget":"Budget",
+    "b1":"Under ¥10k","b2":"¥10k–50k","b3":"¥50k–200k","b4":"Over ¥200k","b5":"Not sure yet",
+    "brief.when":"When should it go live?","d1":"Within 2 weeks","d2":"Within a month","d3":"1–3 months","d4":"No rush",
+    "brief.brand":"Brand / company","brief.brandPh":"e.g. an outdoor brand selling mainly in North America",
+    "brief.note":"Tell us your idea","brief.notePh":"The feel you want, reference links, where it will run… a few lines is plenty",
+    "brief.submit":"Create brief","brief.hint":"Copy it in one click and email it to us.","brief.copy":"Copy brief",
+    "foot.copy":"© 2026 Yuyuan 芋圆 · Shenzhen","foot.note":"Every piece on this site was made by the Yuyuan team with AI."
+  };
+  const UI = {
+    zh:{copied:"已复制",selected:"已选中，按 Ctrl/⌘ + C 复制",needType:"至少选一种想做的内容",made:"需求单已生成",
+        head:"【芋圆 · 项目需求单】",type:"需求类型",budget:"预算范围",when:"上线时间",brand:"品牌 / 公司",note:"想法",none:"未填写",sep:"、"},
+    en:{copied:"Copied",selected:"Selected. Press Ctrl/⌘ + C to copy",needType:"Pick at least one thing you need",made:"Brief created",
+        head:"[Yuyuan · Project brief]",type:"Needs",budget:"Budget",when:"Go-live",brand:"Brand / company",note:"Idea",none:"Not provided",sep:", "}
+  };
+  const ZH_T = {}, ZH_H = {}, ZH_P = {};
+  const nodes = [...document.querySelectorAll("[data-i18n],[data-i18n-html],[data-i18n-ph]")];
+  nodes.forEach(el => {
+    const d = el.dataset;
+    if (d.i18n && !(d.i18n in ZH_T)) ZH_T[d.i18n] = el.textContent;
+    if (d.i18nHtml && !(d.i18nHtml in ZH_H)) ZH_H[d.i18nHtml] = el.innerHTML;
+    if (d.i18nPh && !(d.i18nPh in ZH_P)) ZH_P[d.i18nPh] = el.getAttribute("placeholder") || "";
+  });
+  let lang = "zh";
+  function apply(next){
+    lang = next === "en" ? "en" : "zh";
+    const en = lang === "en";
+    document.documentElement.lang = en ? "en" : "zh-CN";
+    nodes.forEach(el => {
+      const d = el.dataset;
+      if (d.i18n) el.textContent = en ? (EN[d.i18n] ?? ZH_T[d.i18n]) : ZH_T[d.i18n];
+      if (d.i18nHtml) el.innerHTML = en ? (EN[d.i18nHtml] ?? ZH_H[d.i18nHtml]) : ZH_H[d.i18nHtml];
+      if (d.i18nPh) el.setAttribute("placeholder", en ? (EN[d.i18nPh] ?? ZH_P[d.i18nPh]) : ZH_P[d.i18nPh]);
+    });
+    document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+    try { localStorage.setItem("yy-lang", lang); } catch (e) {}
+    document.dispatchEvent(new CustomEvent("yy:lang", {detail: lang}));
+  }
+  window.YY = {
+    get lang(){ return lang; },
+    ui: key => UI[lang][key],
+    text: key => lang === "en" ? (EN[key] ?? ZH_T[key] ?? key) : (ZH_T[key] ?? key)
+  };
+  document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => apply(b.dataset.lang)));
+  let saved = null;
+  try { saved = localStorage.getItem("yy-lang"); } catch (e) {}
+  if (saved === "en") apply("en");
+})();
+</script>
+
+<script>
+/* ---------- hero reel: the studio's own clips, cut together with a "denoise" transition ---------- */
+(function(){
+  const hero = document.getElementById("top");
+  const media = hero.querySelector(".hero-media");
+  const poster = document.getElementById("hero-poster");
+  const canvas = document.getElementById("hero-canvas");
+  const nav = document.getElementById("reel-nav");
+  const nowTitle = document.getElementById("now-title");
+  const nowMeta = document.getElementById("now-meta");
+  const hudTc = document.getElementById("hud-tc"), hudIdx = document.getElementById("hud-idx"), hudTotal = document.getElementById("hud-total");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const KIND = {
+    short:{zh:"AI 短片", en:"AI short film"}, brand:{zh:"品牌片", en:"Brand film"}, promo:{zh:"推广片", en:"Promo film"},
+    social:{zh:"社媒短视频", en:"Social video"}, ecom:{zh:"电商视觉", en:"E-commerce"}
+  };
+  const WIDE = [
+    {src:"media/hero-24th.mp4", poster:"media/hero-24th.jpg", work:"24th", kind:"short", ratio:"2.39:1", dur:"2′51″", off:140.8},
+    {src:"media/hero-songs.mp4", poster:"media/hero-songs.jpg", work:"songs", kind:"brand", ratio:"16:9 · 4K", dur:"25″", off:8.6},
+    {src:"media/hero-boc-london.mp4", poster:"media/hero-boc-london.jpg", work:"boc", kind:"promo", ratio:"16:9 · 4K", dur:"1′32″", off:29.6},
+    {src:"media/hero-boc-sydney.mp4", poster:"media/hero-boc-sydney.jpg", work:"boc", kind:"promo", ratio:"16:9 · 4K", dur:"1′32″", off:37.6}
+  ];
+  const TALL = [
+    {src:"media/v-grwm.mp4", poster:"media/v-grwm.jpg", work:"grwm", kind:"social", ratio:"9:16", dur:"29″", off:22.8},
+    {src:"media/v-matcha.mp4", poster:"media/v-matcha.jpg", work:"matcha", kind:"ecom", ratio:"3:4", dur:"10″", off:0},
+    {src:"media/v-ivory.mp4", poster:"media/v-ivory.jpg", work:"ivory", kind:"ecom", ratio:"3:4", dur:"8″", off:0}
+  ];
+  const TRANS = 1.2;
+  let list = null, vids = [], cur = 0, nxt = -1, transStart = 0, visible = true, shown = false, shownIdx = 0;
+
+  /* WebGL: two video textures, blocky resolve between them */
+  const FS = `precision mediump float;
+uniform sampler2D uA,uB;uniform vec2 uRes,uSa,uSb;uniform float uT,uTime;
+vec2 cover(vec2 uv,vec2 s){float ra=uRes.x/uRes.y,rv=s.x/max(s.y,1.);vec2 k=ra>rv?vec2(1.,rv/ra):vec2(ra/rv,1.);return (uv-.5)*k+.5;}
+float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+void main(){
+  vec2 fc=gl_FragCoord.xy;float k=sin(3.14159265*uT);
+  float px=floor(mix(1.,uRes.y/14.,k*k));
+  vec2 blk=floor(fc/max(px,1.));
+  vec2 uv=px<1.5?fc/uRes:((blk+.5)*px)/uRes;
+  vec3 a=texture2D(uA,cover(uv,uSa)).rgb, b=texture2D(uB,cover(uv,uSb)).rgb;
+  float r=h(blk);
+  float sw=clamp((uT-.22-r*.5)/.08,0.,1.);
+  vec3 col=mix(a,b,sw);
+  float n=h(blk+floor(uTime*18.));
+  col=mix(col,vec3(n)*vec3(1.,.95,1.05),.24*k);
+  if(px>1.5){vec2 lp=fract(fc/px)-.5;float rr=.3;float dd=length(max(abs(lp)-(.4-rr),0.))-rr;float mm=smoothstep(.03,-.03,dd);col=mix(vec3(.078,.063,.051),col,mix(1.,mm,k));}
+  col+=(h(fc+fract(uTime)*61.)-.5)*.035;
+  gl_FragColor=vec4(col,1.);
+}`;
+  let gl = null, uni = {}, texA, texB;
+  try {
+    gl = canvas.getContext("webgl", {alpha:false, antialias:false, depth:false, stencil:false, premultipliedAlpha:false});
+    if (!gl) throw new Error("no webgl");
+    const mk = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+    const pr = gl.createProgram();
+    gl.attachShader(pr, mk(gl.VERTEX_SHADER, "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}"));
+    gl.attachShader(pr, mk(gl.FRAGMENT_SHADER, FS));
+    gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) throw new Error("link failed");
+    gl.useProgram(pr);
+    const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(pr, "p"); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    ["uA","uB","uRes","uSa","uSb","uT","uTime"].forEach(n => uni[n] = gl.getUniformLocation(pr, n));
+    const mkTex = unit => { const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([20,16,13,255])); return t; };
+    texA = mkTex(0); texB = mkTex(1);
+    gl.uniform1i(uni.uA, 0); gl.uniform1i(uni.uB, 1);
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    canvas.addEventListener("webglcontextlost", e => { e.preventDefault(); gl = null; canvas.classList.remove("on"); hero.classList.add("no-gl"); vids.forEach((v, i) => v.classList.toggle("cur", i === cur)); });
+  } catch (e) { gl = null; }
+  if (!gl) hero.classList.add("no-gl");
+
+  function upload(unit, tex, v){
+    if (!v || v.readyState < 2 || !v.videoWidth) return false;
+    gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, tex);
+    try { gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, v); return true; } catch (e) { return false; }
+  }
+  function size(){
+    const w = hero.clientWidth, h = hero.clientHeight;
+    const s = Math.min(window.devicePixelRatio || 1, 1.5, Math.sqrt(2.2e6 / Math.max(1, w * h)));
+    canvas.width = Math.max(1, Math.round(w * s)); canvas.height = Math.max(1, Math.round(h * s));
+    if (gl) gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+  const tc = t => { const f = Math.floor(t * 30); const p = n => String(n).padStart(2, "0");
+    return p(Math.floor(f / 108000)) + ":" + p(Math.floor(f / 1800) % 60) + ":" + p(Math.floor(f / 30) % 60) + ":" + p(f % 30); };
+
+  function label(i){
+    if (!list) return;
+    if (i === undefined) i = shownIdx;
+    shownIdx = i;
+    const c = list[i], lang = (window.YY && YY.lang) || "zh";
+    nowTitle.textContent = window.YY ? YY.text("w." + c.work) : c.work;
+    nowMeta.innerHTML = "<span>" + KIND[c.kind][lang] + "</span><span>" + c.ratio + "</span><span>" + c.dur + "</span>";
+    hudIdx.textContent = String(i + 1).padStart(2, "0");
+    [...nav.children].forEach((b, k) => { b.setAttribute("aria-current", String(k === i)); if (k !== i) b.style.setProperty("--p", 0); });
+  }
+  function tryPlay(v){ if (!v) return; v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); }
+  function build(){
+    const want = hero.clientWidth / Math.max(1, hero.clientHeight) < 0.8 ? TALL : WIDE;
+    if (want === list) return;
+    list = want; vids.forEach(v => v.remove()); vids = []; cur = 0; nxt = -1; shown = false; canvas.classList.remove("on");
+    poster.src = list[0].poster;
+    list.forEach((c, i) => {
+      const v = document.createElement("video");
+      v.muted = true; v.defaultMuted = true; v.playsInline = true;
+      v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("aria-hidden", "true");
+      v.preload = i < 2 ? "auto" : "metadata"; v.src = c.src;
+      if (i === 0) v.classList.add("cur");
+      media.insertBefore(v, canvas); vids.push(v);
+    });
+    nav.innerHTML = list.map((c, i) => '<button type="button" aria-label="' + (i + 1) + '"><i></i></button>').join("");
+    [...nav.children].forEach((b, i) => b.addEventListener("click", () => go(i)));
+    hudTotal.textContent = String(list.length).padStart(2, "0");
+    label(0);
+    if (!reduce && visible) tryPlay(vids[0]);
+  }
+  function finish(){
+    const old = vids[cur];
+    cur = nxt; nxt = -1;
+    if (old && old !== vids[cur]) old.pause();
+    vids.forEach((v, i) => v.classList.toggle("cur", i === cur));
+    label(cur);
+  }
+  function go(i){
+    if (!list || i === cur || nxt !== -1) return;
+    if (reduce) { cur = i; poster.src = list[i].poster; vids.forEach((v, k) => v.classList.toggle("cur", k === i)); label(i); return; }
+    nxt = i; const v = vids[i]; try { v.currentTime = 0; } catch (e) {} tryPlay(v);
+    transStart = performance.now();
+    if (!gl) finish();
+  }
+
+  function loop(now){
+    requestAnimationFrame(loop);
+    if (!list || !visible || reduce) return;
+    const A = vids[cur];
+    if (nxt === -1 && A.duration && A.currentTime >= A.duration - 0.55) go((cur + 1) % list.length);
+    let t = 0;
+    if (nxt !== -1) { t = Math.min(1, (now - transStart) / 1000 / TRANS); if (t >= 1) { finish(); t = 0; } }
+    const V = vids[cur];
+    const d = nxt !== -1 && t >= 0.5 ? nxt : cur;
+    if (d !== shownIdx) label(d);
+    const D = vids[d];
+    if (D.duration) { const b = nav.children[d]; if (b) b.style.setProperty("--p", Math.min(1, D.currentTime / D.duration)); hudTc.textContent = tc(list[d].off + D.currentTime); }
+    if (!gl) return;
+    const okA = upload(0, texA, V);
+    if (nxt !== -1) upload(1, texB, vids[nxt]);
+    if (!okA && !shown) return;
+    const B = nxt !== -1 ? vids[nxt] : V;
+    gl.uniform2f(uni.uRes, canvas.width, canvas.height);
+    gl.uniform2f(uni.uSa, V.videoWidth || 16, V.videoHeight || 9);
+    gl.uniform2f(uni.uSb, B.videoWidth || 16, B.videoHeight || 9);
+    gl.uniform1f(uni.uT, t); gl.uniform1f(uni.uTime, now / 1000);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (!shown && okA) { shown = true; canvas.classList.add("on"); }
+  }
+
+  document.getElementById("hero-play").addEventListener("click", () => { if (list && window.YYPlayer) YYPlayer.open(list[shownIdx].work); });
+  document.addEventListener("yy:lang", () => label());
+  new IntersectionObserver(es => {
+    visible = es[0].isIntersecting;
+    if (reduce || !list) return;
+    if (visible) { tryPlay(vids[cur]); if (nxt !== -1) tryPlay(vids[nxt]); } else vids.forEach(v => v.pause());
+  }).observe(hero);
+  document.addEventListener("visibilitychange", () => { if (document.hidden) vids.forEach(v => v.pause()); else if (visible && list && !reduce) tryPlay(vids[cur]); });
+  let rt = 0;
+  new ResizeObserver(() => { size(); clearTimeout(rt); rt = setTimeout(build, 150); }).observe(hero);
+  size(); build();
+  requestAnimationFrame(loop);
+})();
+</script>
+
+<script>
+/* ---------- player: full-length pieces open in a dialog, with sound ---------- */
+window.YYPlayer = (function(){
+  const WORKS = {
+    "24th": {full:"media/full-24th.mp4", poster:"media/full-24th.jpg", tall:false},
+    songs:  {full:"media/full-songs.mp4", poster:"media/full-songs.jpg", tall:false},
+    boc:    {full:"media/full-boc.mp4", poster:"media/full-boc.jpg", tall:false},
+    grwm:   {full:"media/full-grwm.mp4", poster:"media/full-grwm.jpg", tall:true},
+    matcha: {full:"media/v-matcha.mp4", poster:"media/v-matcha.jpg", tall:true},
+    ivory:  {full:"media/v-ivory.mp4", poster:"media/v-ivory.jpg", tall:true}
+  };
+  const dlg = document.getElementById("player"), vid = document.getElementById("player-video");
+  const title = document.getElementById("player-title"), meta = document.getElementById("player-meta");
+  let current = null, opener = null;
+  const text = () => { title.textContent = YY.text("w." + current); meta.textContent = YY.text("w." + current + ".meta"); };
+  function open(id){
+    const w = WORKS[id]; if (!w) return;
+    current = id; opener = document.activeElement; text();
+    dlg.classList.toggle("tall", w.tall);
+    vid.poster = w.poster; vid.src = w.full; vid.muted = false;
+    if (typeof dlg.showModal === "function") { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute("open", "");
+    const p = vid.play(); if (p && p.catch) p.catch(() => {});
+  }
+  function close(){
+    vid.pause(); vid.removeAttribute("src"); vid.load();
+    if (dlg.open) { if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
+    if (opener && opener.focus) opener.focus();
+  }
+  document.getElementById("player-close").addEventListener("click", close);
+  dlg.addEventListener("close", () => { vid.pause(); });
+  dlg.addEventListener("click", e => { if (e.target === dlg) close(); });
+  document.addEventListener("yy:lang", () => { if (current && dlg.open) text(); });
+  document.querySelectorAll(".js-play").forEach(el => el.addEventListener("click", e => { e.preventDefault(); open(el.dataset.work); }));
+  return {open, close};
+})();
+
+/* ---------- mosaic + case videos: play only while on screen; filter highlights ---------- */
+(function(){
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce) {
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      const v = e.target;
+      if (e.isIntersecting) { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause();
+    }), {threshold: 0.2});
+    document.querySelectorAll(".mosaic video, .expand-card video, .look video").forEach(v => io.observe(v));
+  }
+  const mosaic = document.getElementById("mosaic");
+  const chips = [...document.querySelectorAll(".chip")];
+  chips.forEach(ch => ch.addEventListener("click", () => {
+    const f = ch.dataset.filter;
+    chips.forEach(x => x.setAttribute("aria-pressed", String(x === ch)));
+    mosaic.classList.toggle("filtering", f !== "all");
+    mosaic.querySelectorAll(".tile").forEach(t => t.classList.toggle("match", f === "all" || t.dataset.cat === f));
+  }));
+
+  /* case 01: the film card opens up to full-bleed as you scroll */
+  const ex = document.getElementById("expand-songs"), card = document.getElementById("expand-card");
+  const sticky = ex.querySelector(".expand-sticky");
+  let ticking = false;
+  function update(){
+    ticking = false;
+    const r = ex.getBoundingClientRect();
+    const run = r.height - sticky.offsetHeight;
+    if (run <= 0) { card.style.setProperty("--p", 1); return; }
+    const top = parseFloat(getComputedStyle(sticky).top) || 64;
+    const raw = (top - r.top) / run;
+    card.style.setProperty("--p", Math.max(0, Math.min(1, raw / 0.7)).toFixed(4));
+  }
+  if (!reduce) {
+    addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, {passive: true});
+    addEventListener("resize", update);
+    update();
+  } else card.style.setProperty("--p", 1);
+})();
+</script>
+<script>
+/* ---------- copy helpers, toast, project brief ---------- */
+(function(){
+  const toast = document.getElementById("toast");
+  let tt = 0;
+  function say(msg){
+    toast.textContent = msg; toast.classList.add("show");
+    clearTimeout(tt); tt = setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+  function selectText(el){
+    const range = document.createRange(); range.selectNodeContents(el);
+    const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+  }
+  function copyFrom(el){
+    const text = el.textContent;
+    const fail = () => { selectText(el); say(YY.ui("selected")); };
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) return fail();
+      navigator.clipboard.writeText(text).then(() => say(YY.ui("copied")), fail);
+    } catch (e) { fail(); }
+  }
+  document.querySelectorAll("[data-copy]").forEach(btn => {
+    btn.addEventListener("click", () => copyFrom(document.getElementById(btn.dataset.copy)));
+  });
+
+  const form = document.getElementById("brief");
+  const out = document.getElementById("brief-out");
+  const pre = document.getElementById("brief-text");
+  function build(){
+    const types = [...form.querySelectorAll('input[name="type"]:checked')].map(i => YY.text(i.value));
+    const budget = form.querySelector('input[name="budget"]:checked');
+    const when = form.querySelector('input[name="when"]:checked');
+    const brand = form.elements.brand.value.trim();
+    const note = form.elements.note.value.trim();
+    const none = YY.ui("none");
+    return [
+      YY.ui("head"),
+      YY.ui("type") + "：" + (types.length ? types.join(YY.ui("sep")) : none),
+      YY.ui("budget") + "：" + (budget ? YY.text(budget.value) : none),
+      YY.ui("when") + "：" + (when ? YY.text(when.value) : none),
+      YY.ui("brand") + "：" + (brand || none),
+      YY.ui("note") + "：" + (note || none)
+    ].join("\n").replace(/：/g, YY.lang === "en" ? ": " : "：");
+  }
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    if (!form.querySelector('input[name="type"]:checked')) { say(YY.ui("needType")); form.querySelector('input[name="type"]').focus(); return; }
+    pre.textContent = build();
+    out.hidden = false;
+    say(YY.ui("made"));
+  });
+  document.getElementById("brief-copy").addEventListener("click", () => copyFrom(pre));
+  document.addEventListener("yy:lang", () => { if (!out.hidden) pre.textContent = build(); });
+})();
+</script>
+
+</body>
+</html>
