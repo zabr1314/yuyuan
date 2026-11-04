@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon-180.png">
 <style>[hidden]{display:none!important}img{max-width:100%}</style>
 <title>芋圆 YUYUAN</title>
-<meta name="description" content="芋圆 YUYUAN 是一支 AIGC 创作团队，制作 AI 广告片、电商视觉、社媒短视频与短剧动画。">
+<meta name="description" content="芋圆 YUYUAN 是一支 AIGC 创作团队，制作 AI 婚礼微电影、原创 MV、AI 广告片、电商视觉、社媒短视频与短剧动画。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&display=swap">
@@ -109,6 +109,7 @@ p{margin:0}
 .hero{position:relative;isolation:isolate;overflow:hidden;height:clamp(540px,calc(100svh - 64px - 56px),1000px);background:var(--jelly);border-bottom:1px solid var(--jelly-3)}
 .hero-media{position:absolute;inset:0;z-index:-2;background:var(--jelly)}
 .hero-media > *{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero.portrait-reel .hero-media > video,.hero.portrait-reel #hero-poster{object-fit:contain}
 .hero-media video{opacity:0;transition:opacity .9s ease}
 .hero-media canvas{opacity:0;transition:opacity .8s ease}
 .hero-media canvas.on{opacity:1}
@@ -196,17 +197,27 @@ dl{margin:0}
 .chip[aria-pressed="true"]{background:var(--milk);border-color:var(--milk);color:var(--jelly)}
 .works-hint{margin-left:auto;font-family:var(--f-mono);font-size:11.5px;color:var(--milk-2)}
 .mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px;
-  grid-template-areas:"a a a a a a a a v v v v" "b b b b c c c c v v v v" "m m m m n n n n p p p p"}
+  grid-template-areas:"w w w w w w w w x x x x" "w w w w w w w w y y y y" "z z z z z z t t t t t t" "a a a a a a a a a a a a" "b b b b c c c c o o o o"}
 .tile{position:relative;display:block;min-width:0;overflow:hidden;border:0;padding:0;border-radius:12px;background:var(--jelly-2);color:var(--milk);text-align:left;text-decoration:none;cursor:pointer;font:inherit;isolation:isolate;transition:opacity .45s ease,filter .45s ease}
 .tile > video,.tile > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 .tile:hover > video,.tile:hover > img,.tile:focus-visible > video,.tile:focus-visible > img{transform:scale(1.035)}
+.mosaic-portraits,.mosaic-column{display:contents}
+/* w spans two rows next to the stacked x / y tiles, so it takes its height from them */
+.tile[data-area="w"]{grid-area:w}
+.tile[data-area="x"]{grid-area:x;aspect-ratio:16/9}
+.tile[data-area="y"]{grid-area:y;aspect-ratio:16/9}
+.tile[data-area="z"]{grid-area:z;aspect-ratio:16/9}
+.tile[data-area="t"]{grid-area:t;aspect-ratio:16/9}
+.tile[data-area="o"]{grid-area:o;aspect-ratio:16/9}
 .tile[data-area="a"]{grid-area:a;aspect-ratio:2.39/1}
 .tile[data-area="v"]{grid-area:v}
 .tile[data-area="b"]{grid-area:b;aspect-ratio:16/9}
 .tile[data-area="c"]{grid-area:c;aspect-ratio:16/9}
-.tile[data-area="m"]{grid-area:m;aspect-ratio:3/4}
-.tile[data-area="n"]{grid-area:n;aspect-ratio:3/4}
+.tile[data-area="m"]{grid-area:m;aspect-ratio:9/16}
+.tile[data-area="n"]{grid-area:n;aspect-ratio:9/16}
 .tile[data-area="p"]{grid-area:p;aspect-ratio:3/4}
+.tile[data-area="q"]{grid-area:q;aspect-ratio:3/4}
+.tile[data-area="r"]{grid-area:r;aspect-ratio:3/4}
 .tile-cap{position:absolute;left:0;right:0;bottom:0;display:grid;gap:5px;padding:48px 16px 14px;background:linear-gradient(0deg,color-mix(in srgb,var(--jelly) 82%,transparent),transparent)}
 .tile-cap strong{font-family:var(--f-cn);font-weight:900;font-size:clamp(16px,1.35vw,20px);line-height:1.3}
 .tile-cap span{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;color:color-mix(in srgb,var(--milk) 78%,transparent);font-variant-numeric:tabular-nums}
@@ -216,11 +227,38 @@ dl{margin:0}
 .tile:hover .tile-go,.tile:focus-visible .tile-go{opacity:1;transform:none}
 .mosaic.filtering .tile:not(.match){opacity:.18;filter:grayscale(1)}
 @media (max-width:760px){
-  .mosaic{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;grid-template-areas:"a a" "b b" "c c" "v m" "n p"}
-  .tile[data-area="v"]{aspect-ratio:3/4}
+  /* Wide works stack above two independent portrait columns. Media never decides placement. */
+  .mosaic{grid-template-columns:minmax(0,1fr);grid-template-areas:none;gap:12px;align-items:start}
+  .mosaic-portraits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:start;min-width:0}
+  .mosaic-column{display:flex;flex-direction:column;gap:12px;min-width:0}
+  .mosaic .tile[data-area]{grid-area:auto;aspect-ratio:auto;min-width:0}
+  .mosaic .tile:not(.series-tile){display:flex;flex-direction:column}
+  .mosaic .tile > video,.mosaic .tile > img{position:static;inset:auto;height:auto;aspect-ratio:var(--media-ratio);object-fit:contain;flex:none}
+  .mosaic .tile[data-area="a"]{--media-ratio:992/432}
+  .mosaic .tile[data-area="b"],.mosaic .tile[data-area="c"],.mosaic .tile[data-area="w"],.mosaic .tile[data-area="x"],.mosaic .tile[data-area="y"],.mosaic .tile[data-area="z"],.mosaic .tile[data-area="t"],.mosaic .tile[data-area="o"]{--media-ratio:16/9}
+  .mosaic .tile[data-area="v"],.mosaic .tile[data-area="n"]{--media-ratio:9/16}
+  .mosaic .tile[data-area="p"],.mosaic .tile[data-area="q"],.mosaic .tile[data-area="r"]{--media-ratio:3/4}
+  .mosaic .tile-cap{position:static;inset:auto;padding:11px 12px 13px;gap:4px;background:none;min-height:60px}
+  .mosaic .tile-cap strong{line-height:1.35;overflow-wrap:anywhere}
+  .mosaic .tile-cap span{font-size:10px;line-height:1.5;letter-spacing:.03em;overflow-wrap:anywhere}
   .tile-go{display:none}
   .works-hint{display:none}
 }
+
+/* Compact series preview: editable copy lives at series.title / series.desc. */
+.tile.series-tile{aspect-ratio:auto;align-self:start}
+.series-windows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;padding:3px}
+.series-windows video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:contain;background:var(--jelly);min-width:0}
+.series-caption{display:grid;gap:6px;padding:12px 14px 15px}
+.series-caption strong{font-family:var(--f-cn);font-size:18px;line-height:1.35}
+.series-caption>span{font-size:11px;line-height:1.6;color:var(--milk-2)}
+.series-dialog{width:min(1000px,94vw);max-height:92svh;padding:0;border:1px solid var(--jelly-3);border-radius:16px;background:var(--jelly);color:var(--milk);overflow:auto}
+.series-dialog::backdrop{background:color-mix(in srgb,var(--jelly) 86%,transparent);backdrop-filter:blur(8px)}
+.series-full{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 18px;padding:0 18px 22px}
+.series-full figure{margin:0;min-width:0}
+.series-full video{display:block;width:100%;aspect-ratio:9/16;object-fit:contain;background:var(--jelly);max-height:65svh}
+.series-full figcaption{margin-top:8px;font-size:14px}
+@media(max-width:760px){.series-windows{grid-template-columns:repeat(2,minmax(0,1fr))}.series-caption{padding:10px}.series-caption strong{font-size:16px}.series-caption>span{font-size:10px}.series-full{grid-template-columns:minmax(0,1fr)}}
 
 /* ---------- case studies ---------- */
 .case{padding-block:clamp(76px,10vw,140px) 0;border-bottom:1px solid var(--jelly-3);scroll-margin-top:64px}
@@ -265,6 +303,58 @@ dl{margin:0}
 .look-grid img{width:100%;height:auto;display:block;border-radius:10px;background:var(--jelly-2)}
 .look-grid .wide{grid-column:span 2}
 @media (max-width:860px){.look{grid-template-columns:minmax(0,1fr)}.look-video{position:relative;top:auto}.look-video .vbox{aspect-ratio:3/4;max-height:70svh}}
+
+/* ---------- AI label on wedding and MV footage (see 06 AI内容标识方案) ---------- */
+.ai-badge{position:absolute;right:12px;top:12px;z-index:2;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;line-height:1.4;padding:4px 8px;border-radius:6px;background:color-mix(in srgb,var(--jelly) 70%,transparent);color:var(--milk);pointer-events:none}
+.expand-card .ai-badge{right:clamp(14px,2.4vw,28px);top:clamp(14px,2.4vw,28px)}
+
+/* ---------- case: wedding film ---------- */
+.lives{list-style:none;margin:0;padding:clamp(40px,6vw,72px) 0 0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.lives figure{margin:0;display:grid;gap:10px}
+.lives img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:10px;background:var(--jelly-2)}
+.lives figcaption{display:grid;gap:2px}
+.lives b{font-family:var(--f-cn);font-weight:900;font-size:17px;line-height:1.35;color:var(--milk)}
+.lives span{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;color:var(--milk-2)}
+.vows{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(48px,7vw,88px) clamp(76px,10vw,140px)}
+.vow-posters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.vow-posters img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:10px;background:var(--jelly-2)}
+.vow-posters figure{margin:0}
+.vow-posters figure:nth-child(2){transform:translateY(clamp(14px,2.4vw,32px))}
+.vow-steps h3{font-family:var(--f-cn);font-weight:900;font-size:var(--t-lg);line-height:1.25}
+.vow-steps ol{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:0;border-top:1px solid var(--jelly-3)}
+.vow-steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:4px 14px;padding:18px 0;border-bottom:1px solid var(--jelly-3)}
+.vow-steps li > span{grid-row:1 / span 2;font-family:var(--f-display);font-weight:300;font-variation-settings:"SOFT" 100,"opsz" 144;font-size:32px;line-height:1;color:var(--bean)}
+.vow-steps li b{font-size:16px;font-weight:700;line-height:1.5}
+.vow-steps li p{grid-column:2;color:var(--milk-2);font-size:14.5px}
+.vow-steps .fine{margin-top:16px;font-size:12.5px;color:var(--milk-2)}
+.vow-steps .btn{margin-top:22px}
+.more-films{padding-top:clamp(48px,7vw,88px)}
+.more-films h3{font-family:var(--f-cn);font-weight:900;font-size:var(--t-lg);line-height:1.25;margin-bottom:clamp(16px,2vw,24px)}
+.film-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,2.4vw,28px) 14px}
+@media (max-width:900px){.lives{grid-template-columns:repeat(2,minmax(0,1fr))}.vows{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:600px){.film-pair{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- case: music videos ---------- */
+.mv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(18px,2.4vw,28px) 14px;padding-bottom:clamp(76px,10vw,140px)}
+.mv{display:grid;align-content:start;gap:12px;min-width:0;padding:0;border:0;background:transparent;color:var(--milk);text-align:left;font:inherit;cursor:pointer}
+.mv-frame{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border-radius:12px;background:var(--jelly-2);isolation:isolate}
+.mv-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.mv:hover .mv-frame video,.mv:focus-visible .mv-frame video{transform:scale(1.035)}
+.mv .tile-go{left:12px;right:auto;bottom:12px;top:auto}
+.mv:hover .tile-go,.mv:focus-visible .tile-go{opacity:1;transform:none}
+.mv-cap{display:grid;gap:4px}
+.mv-cap strong{font-family:var(--f-cn);font-weight:900;font-size:19px;line-height:1.35}
+.mv-cap .mono{letter-spacing:.06em;text-transform:none;font-size:11px}
+.mv-cap .hook{color:var(--milk-2);font-size:14px;line-height:1.6}
+.mv.mv-feature{grid-column:1 / -1;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:14px clamp(20px,3vw,40px);align-items:center;margin-bottom:clamp(8px,1.6vw,18px)}
+.mv-feature .mv-cap{gap:10px}
+.mv-feature .mv-cap strong{font-size:clamp(24px,2.4vw,34px);line-height:1.25}
+.mv-feature .mv-cap .hook{font-size:15px}
+.mv-feature .mv-cap .fine{font-size:12.5px;padding-top:10px;border-top:1px solid var(--jelly-3)}
+@media (max-width:760px){.mv.mv-feature{grid-template-columns:minmax(0,1fr)}}
+.mv-note{max-width:760px;margin:0 auto clamp(28px,4vw,44px);text-align:center;font-size:12.5px;color:var(--milk-2)}
+@media (max-width:960px){.mv-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.mv-grid{grid-template-columns:minmax(0,1fr)}.mv .tile-go{opacity:1;transform:none}}
 
 /* ---------- services: link each line to its work ---------- */
 .svc-meta a{color:var(--milk);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--taro) 60%,transparent)}
@@ -392,10 +482,11 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
     </a>
     <nav class="nav" aria-label="Main">
       <a href="#works" data-i18n="nav.works">作品</a>
+      <a href="#case-wedding" data-i18n="nav.wedding">婚礼</a>
+      <a href="#case-mv" data-i18n="nav.mv">MV</a>
       <a href="#case-songs" data-i18n="nav.cases">案例</a>
       <a href="#services" data-i18n="nav.services">服务</a>
       <a href="#process" data-i18n="nav.process">流程</a>
-      <a href="#team" data-i18n="nav.team">团队</a>
       <a href="#contact" data-i18n="nav.contact">联系</a>
     </nav>
     <div class="head-actions">
@@ -412,7 +503,7 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
 <main id="main">
 <section class="hero" id="top" aria-labelledby="hero-title">
   <div class="hero-media" aria-hidden="true">
-    <img id="hero-poster" src="media/hero-24th.jpg" alt="">
+    <img id="hero-poster" src="media/hero-hongsheng.jpg" alt="">
     <canvas id="hero-canvas"></canvas>
   </div>
   <div class="vf" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -429,8 +520,8 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
     <div class="hero-bottom">
       <div class="now">
         <div class="reel-nav" id="reel-nav" role="group" aria-label="Reel"></div>
-        <p class="now-title" id="now-title">第二十四张</p>
-        <p class="now-meta" id="now-meta"><span>AI 短片</span><span>2.39:1</span><span>2′51″</span></p>
+        <p class="now-title" id="now-title">《红绳》三生三世</p>
+        <p class="now-meta" id="now-meta"><span>AI 婚礼微电影</span><span>16:9</span><span>1′10″</span></p>
       </div>
       <div class="hud" aria-hidden="true">
         <span class="gen"><span class="live-dot"></span>PLAYING</span>
@@ -448,30 +539,54 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
         <p class="mono" data-i18n="works.kicker">Works · 作品</p>
         <h2 class="sec-title" id="works-title"><span data-i18n="works.title">每一帧，都是现煮的</span><span class="en" data-i18n="works.en">Every frame, freshly made.</span></h2>
       </div>
-      <p class="sec-intro" data-i18n="works.intro">这里的每一支片子、每一张图都由芋圆用 AI 制作，并按真实交付比例展示：电影感短片 2.39:1，品牌片 16:9，竖屏短视频 9:16，电商主图 3:4。</p>
+      <p class="sec-intro" data-i18n="works.intro">这里放的是我们最满意的 AIGC 成片：婚礼微电影、剧情 MV、短片和品牌片，每一支都由芋圆用 AI 制作，按真实交付比例展示。</p>
     </div>
     <div class="works-bar">
       <div class="chips" role="group" aria-label="Filter">
         <button class="chip" type="button" data-filter="all" aria-pressed="true" data-i18n="cat.all">全部</button>
+        <button class="chip" type="button" data-filter="wedding" aria-pressed="false" data-i18n="cat.wedding">婚礼微电影</button>
+        <button class="chip" type="button" data-filter="mv" aria-pressed="false" data-i18n="cat.mv">MV</button>
         <button class="chip" type="button" data-filter="tvc" aria-pressed="false" data-i18n="cat.tvc">广告片</button>
-        <button class="chip" type="button" data-filter="ecom" aria-pressed="false" data-i18n="cat.ecom">电商视觉</button>
-        <button class="chip" type="button" data-filter="social" aria-pressed="false" data-i18n="cat.social">社媒短视频</button>
-        <button class="chip" type="button" data-filter="story" aria-pressed="false" data-i18n="cat.story">短剧 · 动画 · MV</button>
+        <button class="chip" type="button" data-filter="story" aria-pressed="false" data-i18n="cat.story">短剧 · 动画</button>
       </div>
       <span class="works-hint" data-i18n="works.hint">点开任意一格看完整版</span>
     </div>
     <div class="mosaic" id="mosaic">
+      <button class="tile js-play" type="button" data-area="w" data-cat="wedding" data-work="hongsheng">
+        <video src="media/hero-hongsheng.mp4" poster="media/hero-hongsheng.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag" data-i18n="tag.ai169">16:9 · AI 生成</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
+        <span class="tile-cap"><strong data-i18n="w.hongsheng">《红绳》三生三世</strong><span data-i18n="w.hongsheng.meta">AI 婚礼微电影 · 1′10″ · 原创配乐</span></span>
+      </button>
+      <button class="tile js-play" type="button" data-area="x" data-cat="wedding" data-work="xueguo">
+        <video src="media/hero-xueguo.mp4" poster="media/hero-xueguo.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag" data-i18n="tag.ai169">16:9 · AI 生成</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
+        <span class="tile-cap"><strong data-i18n="w.xueguo">《雪国》婚前 MV</strong><span data-i18n="w.xueguo.meta">AI 婚礼微电影 · 45″ · 原创配乐</span></span>
+      </button>
+      <button class="tile js-play" type="button" data-area="y" data-cat="wedding" data-work="kamakura">
+        <video src="media/hero-kamakura.mp4" poster="media/hero-kamakura.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag" data-i18n="tag.ai169">16:9 · AI 生成</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
+        <span class="tile-cap"><strong data-i18n="w.kamakura">《镰仓》婚前 MV</strong><span data-i18n="w.kamakura.meta">AI 婚礼微电影 · 23″ · 原创配乐</span></span>
+      </button>
+      <button class="tile js-play" type="button" data-area="z" data-cat="mv" data-work="mv-zhouxuan">
+        <video src="media/mv-zhouxuan.mp4" poster="media/mv-zhouxuan.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag" data-i18n="tag.ai169">16:9 · AI 生成</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.open">冷开场</span></span>
+        <span class="tile-cap"><strong data-i18n="w.mv-zhouxuan">《周旋》</strong><span data-i18n="w.mv-zhouxuan.meta">剧情 MV · 民国 · 全片 5′24″ · 官网放 30″ 冷开场</span></span>
+      </button>
+      <button class="tile js-play" type="button" data-area="t" data-cat="mv" data-work="mv-tuwei">
+        <video src="media/mv-tuwei.mp4" poster="media/mv-tuwei.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag" data-i18n="tag.ai169">16:9 · AI 生成</span>
+        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
+        <span class="tile-cap"><strong data-i18n="w.mv-tuwei">《土味情歌》</strong><span data-i18n="w.mv-tuwei.meta">剧情 MV · 3′09″ · 乡土爱情</span></span>
+      </button>
       <button class="tile js-play" type="button" data-area="a" data-cat="story" data-work="24th">
         <video src="media/tile-24th.mp4" poster="media/tile-24th.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
         <span class="tile-tag">2.39:1</span>
         <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
         <span class="tile-cap"><strong data-i18n="w.24th">《第二十四张》</strong><span data-i18n="w.24th.meta">AI 短片 · 2′51″ · 青春爱情</span></span>
-      </button>
-      <button class="tile js-play" type="button" data-area="v" data-cat="social" data-work="grwm">
-        <video src="media/v-grwm.mp4" poster="media/v-grwm.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
-        <span class="tile-tag">9:16</span>
-        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
-        <span class="tile-cap"><strong data-i18n="w.grwm">暖阳换装</strong><span data-i18n="w.grwm.meta">社媒短视频 · 29″ · AI 模特试穿</span></span>
       </button>
       <button class="tile js-play" type="button" data-area="b" data-cat="tvc" data-work="songs">
         <video src="media/hero-songs.mp4" poster="media/hero-songs.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
@@ -485,23 +600,111 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
         <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
         <span class="tile-cap"><strong data-i18n="w.boc">中行银联信用卡 × Flywire</strong><span data-i18n="w.boc.meta">推广片 · 1′32″ · 留学缴费</span></span>
       </button>
-      <button class="tile js-play" type="button" data-area="m" data-cat="ecom" data-work="matcha">
-        <video src="media/v-matcha.mp4" poster="media/v-matcha.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
-        <span class="tile-tag">3:4</span>
+      <button class="tile js-play" type="button" data-area="o" data-cat="tvc" data-work="oops">
+        <video src="media/tile-oops.mp4" poster="media/tile-oops.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="tile-tag" data-i18n="tag.mg">16:9 · MG 动画</span>
         <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
-        <span class="tile-cap"><strong data-i18n="w.matcha">AI 模特 · 抹茶绿套装</strong><span data-i18n="w.matcha.meta">电商视觉 · 6 图 + 10″ 上身视频</span></span>
+        <span class="tile-cap"><strong data-i18n="w.oops">Oops · 产品动画</strong><span data-i18n="w.oops.meta">MG 动画 · 1′04″ · 客户官网在用</span></span>
       </button>
-      <button class="tile js-play" type="button" data-area="n" data-cat="ecom" data-work="ivory">
-        <video src="media/v-ivory.mp4" poster="media/v-ivory.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
-        <span class="tile-tag">3:4</span>
-        <span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span>
-        <span class="tile-cap"><strong data-i18n="w.ivory">AI 模特 · 米白提花西装</strong><span data-i18n="w.ivory.meta">电商视觉 · 6 图 + 8″ 上身视频</span></span>
+    </div>
+  </div>
+</section>
+
+<section class="case" id="case-wedding" aria-labelledby="casew-title">
+  <div class="wrap">
+    <div class="case-intro">
+      <p class="mono" data-i18n="casew.kicker">Case 01 · AI 婚礼微电影</p>
+      <h2 id="casew-title" data-i18n="casew.title">红绳：三生三世，都是你</h2>
+      <p data-i18n="casew.desc">一部 70 秒的婚前微电影。一根红绳从江南的明制婚礼，系到民国照相馆、一九八〇年的露天电影，最后系回今生的花房婚礼。每一世的服装、场景和光线单独设计，同一对新人在四个时代里始终是同一张脸。</p>
+      <ul class="facts">
+        <li><b>1′10″</b><span data-i18n="casew.f1">婚前微电影</span></li>
+        <li><b>3+1</b><span data-i18n="casew.f2">三世与今生</span></li>
+        <li><b>16:9</b><span data-i18n="casew.f3">婚礼大屏</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="expand" id="expand-wedding">
+    <div class="expand-sticky">
+      <div class="expand-card">
+        <video src="media/hero-hongsheng.mp4" poster="media/hero-hongsheng.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video>
+        <span class="ai-badge" data-i18n="badge.ai">AI 生成</span>
+        <div class="expand-cap">
+          <p data-i18n="casew.cap">「红绳一系，三生不散。」</p>
+          <button class="btn btn-primary btn-play js-play" type="button" data-work="hongsheng"><span class="pi" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg></span><span data-i18n="hero.play">看这支完整版</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <ol class="lives">
+      <li><figure><img src="img/hongsheng-s1.jpg" width="1280" height="720" alt="第一世：江南水边，新郎伸手接新娘" loading="lazy"><figcaption><b data-i18n="life1.name">第一世 · 江南</b><span data-i18n="life1.desc">明制婚服 · 水乡迎亲</span></figcaption></figure></li>
+      <li><figure><img src="img/hongsheng-s2.jpg" width="1280" height="720" alt="第二世：民国照相馆合影" loading="lazy"><figcaption><b data-i18n="life2.name">第二世 · 民国</b><span data-i18n="life2.desc">长衫旗袍 · 照相馆</span></figcaption></figure></li>
+      <li><figure><img src="img/hongsheng-s3.jpg" width="1280" height="720" alt="第三世：一九八〇年的露天电影" loading="lazy"><figcaption><b data-i18n="life3.name">第三世 · 一九八〇</b><span data-i18n="life3.desc">二八单车 · 露天电影</span></figcaption></figure></li>
+      <li><figure><img src="img/hongsheng-s4.jpg" width="1280" height="720" alt="今生：交换戒指，手腕上还系着红绳" loading="lazy"><figcaption><b data-i18n="life4.name">今生</b><span data-i18n="life4.desc">花房婚礼 · 红绳还在</span></figcaption></figure></li>
+    </ol>
+    <div class="more-films">
+      <h3 data-i18n="more.title">更多婚前 MV</h3>
+      <div class="film-pair">
+        <button class="mv js-play" type="button" data-work="xueguo">
+          <span class="mv-frame"><video src="media/hero-xueguo.mp4" poster="media/hero-xueguo.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video><span class="ai-badge" data-i18n="badge.ai">AI 生成</span><span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span></span>
+          <span class="mv-cap"><strong data-i18n="w.xueguo.t">《雪国》</strong><span class="mono" data-i18n="w.xueguo.m2">北海道雪景 · 45″ · 原创配乐</span><span class="hook" data-i18n="film.xueguo.hook">电车窗上哈气画心，雪地里躺成两个天使，最后在山顶披上婚纱。</span></span>
+        </button>
+        <button class="mv js-play" type="button" data-work="kamakura">
+          <span class="mv-frame"><video src="media/hero-kamakura.mp4" poster="media/hero-kamakura.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video><span class="ai-badge" data-i18n="badge.ai">AI 生成</span><span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span></span>
+          <span class="mv-cap"><strong data-i18n="w.kamakura.t">《镰仓》</strong><span class="mono" data-i18n="w.kamakura.m2">海边电车 · 23″ · 原创配乐</span><span class="hook" data-i18n="film.kamakura.hook">校服、单车、海边的电车道口；再回到同一个道口时，已经穿上了婚纱。</span></span>
+        </button>
+      </div>
+    </div>
+    <div class="vows">
+      <div class="vow-posters">
+        <figure><img src="img/hongsheng-poster-1.jpg" width="720" height="1080" alt="《红绳》海报：第一世，凤冠与团扇" loading="lazy"></figure>
+        <figure><img src="img/hongsheng-poster-2.jpg" width="720" height="1080" alt="《红绳》海报：第一世，落花石桥" loading="lazy"></figure>
+        <figure><img src="img/hongsheng-poster-3.jpg" width="720" height="1080" alt="《红绳》海报：第三世，单车" loading="lazy"></figure>
+      </div>
+      <div class="vow-steps">
+        <h3 data-i18n="vow.title">也给你们做一部</h3>
+        <ol>
+          <li><span>01</span><b data-i18n="vow1.name">选剧本，或者聊聊你们的故事</b><p data-i18n="vow1.desc">三生三世、民国、校园、旅拍等现成剧本可以直接选；想要只属于你们的剧情，先做一次故事访谈，再写原创剧本。</p></li>
+          <li><span>02</span><b data-i18n="vow2.name">几张照片，先定妆</b><p data-i18n="vow2.desc">新人提供几张日常照片，我们先出每个造型的定妆照，你们确认满意，再生成正片。</p></li>
+          <li><span>03</span><b data-i18n="vow3.name">婚礼当天，大屏首映</b><p data-i18n="vow3.desc">交付婚礼大屏用的横版成片，也可以加一条竖版预告，提前发朋友圈。</p></li>
+        </ol>
+        <p class="fine" data-i18n="vow.fine">《红绳》中的新人为 AI 生成的虚构角色。几支婚礼片都用原创配乐，所有成片都会标注「AI 生成」。</p>
+        <a class="btn btn-primary" href="#contact" data-i18n="vow.cta">聊聊你们的婚礼</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="case" id="case-mv" aria-labelledby="casemv-title">
+  <div class="wrap">
+    <div class="case-intro">
+      <p class="mono" data-i18n="casemv.kicker">Case 02 · AI 原创 MV</p>
+      <h2 id="casemv-title" data-i18n="casemv.title">一首歌，长出一个世界</h2>
+      <p data-i18n="casemv.desc">我们做两种 MV。一种是 AI 生成的真人质感画面，能讲一个完整的故事，比如民国剧情《周旋》、乡土爱情《土味情歌》；另一种是逐帧渲染的动画 MV，每支都有原创主角和一个贯穿全片的梗，歌词逐字对齐，唱到哪个字，哪个字就亮起来。</p>
+      <ul class="facts">
+        <li><b>11</b><span data-i18n="casemv.f1">支 MV</span></li>
+        <li><b>2</b><span data-i18n="casemv.f2">真人质感 · 动画</span></li>
+        <li><b data-i18n="casemv.f3b">逐字</b><span data-i18n="casemv.f3">歌词卡点</span></li>
+      </ul>
+    </div>
+    <p class="mv-note" data-i18n="casemv.note">下面是其中 4 支，点开就能看。歌曲版权归原作者所有，芋圆负责画面、角色和歌词动效。</p>
+    <div class="mv-grid">
+      <button class="mv mv-feature js-play" type="button" data-work="mv-zhouxuan">
+        <span class="mv-frame"><video src="media/mv-zhouxuan.mp4" poster="media/mv-zhouxuan.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video><span class="ai-badge" data-i18n="badge.ai">AI 生成</span><span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.open">冷开场</span></span></span>
+        <span class="mv-cap"><span class="mono" data-i18n="mv.zhouxuan.kicker">剧情 MV · 民国 · 5′24″</span><strong data-i18n="w.mv-zhouxuan">《周旋》</strong><span class="hook" data-i18n="mv.zhouxuan.hook">1936 年的上海舞厅，琴师替唱不上高音的歌女降了半个调。她为了保住他，说了一句谎；四十九年后，一只铁盒寄到香港，谱子背面写着真话。</span><span class="hook fine" data-i18n="mv.zhouxuan.note">全片配的是商业歌曲，官网只放片头 30 秒冷开场（原声对白与琴声）。</span></span>
       </button>
-      <a class="tile" href="#case-songs" data-area="p" data-cat="ecom">
-        <img src="img/songs-cover.jpg" alt="" loading="lazy">
-        <span class="tile-tag" data-i18n="w.book.tag">画册 · 7 张</span>
-        <span class="tile-cap"><strong data-i18n="w.book">山下有松 · 秋季画册</strong><span data-i18n="w.book.meta">品牌视觉 · 封面与场景图</span></span>
-      </a>
+      <button class="mv js-play" type="button" data-work="mv-tuwei">
+        <span class="mv-frame"><video src="media/mv-tuwei.mp4" poster="media/mv-tuwei.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video><span class="ai-badge" data-i18n="badge.ai">AI 生成</span><span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span></span>
+        <span class="mv-cap"><strong data-i18n="w.mv-tuwei">《土味情歌》</strong><span class="mono" data-i18n="mv.tuwei.meta">AI 真人质感 · 乡土爱情 · 3′09″</span><span class="hook" data-i18n="mv.tuwei.hook">隔壁修车的大哥穿上大花西装，从小卖部追到油菜花田，最后在村口办了婚礼。</span></span>
+      </button>
+      <button class="mv js-play" type="button" data-work="mv-youdang">
+        <span class="mv-frame"><video src="media/mv-youdang.mp4" poster="media/mv-youdang.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video><span class="ai-badge" data-i18n="badge.ai">AI 生成</span><span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span></span>
+        <span class="mv-cap"><strong data-i18n="w.mv-youdang">《又当又立》</strong><span class="mono" data-i18n="w.mv-youdang.meta">皮影戏 × 宣纸水墨 · 2′40″</span><span class="hook" data-i18n="mv.youdang.hook">人前立牌坊，人后数铜钱，一张皮影两张脸。</span></span>
+      </button>
+      <button class="mv js-play" type="button" data-work="mv-zishu">
+        <span class="mv-frame"><video src="media/mv-zishu.mp4" poster="media/mv-zishu.jpg" muted loop playsinline preload="metadata" aria-hidden="true"></video><span class="ai-badge" data-i18n="badge.ai">AI 生成</span><span class="tile-go"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 1l9 5-9 5z" fill="currentColor"/></svg><span data-i18n="tile.play">完整版</span></span></span>
+        <span class="mv-cap"><strong data-i18n="w.mv-zishu">《紫薯芋泥》</strong><span class="mono" data-i18n="w.mv-zishu.meta">软萌甜品贴纸风 · 2′06″</span><span class="hook" data-i18n="mv.zishu.hook">「紫薯芋泥」，听起来就是「只属于你」。</span></span>
+      </button>
     </div>
   </div>
 </section>
@@ -509,7 +712,7 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
 <section class="case" id="case-songs" aria-labelledby="case1-title">
   <div class="wrap">
     <div class="case-intro">
-      <p class="mono" data-i18n="case1.kicker">Case 01 · 品牌片 + 画册</p>
+      <p class="mono" data-i18n="case1.kicker">Case 03 · 品牌片 + 画册</p>
       <h2 id="case1-title" data-i18n="case1.title">山下有松：把今天，慢慢收好</h2>
       <p data-i18n="case1.desc">一支 25 秒的品牌片，讲一个慢下来的下午：写信、逗猫、路过街边弹吉他的人。同样的光线和质感延续到秋季画册，封面、场景图和单品图一起交付。</p>
       <ul class="facts">
@@ -546,7 +749,7 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
 <section class="case" id="case-model" aria-labelledby="case2-title">
   <div class="wrap">
     <div class="case-intro">
-      <p class="mono" data-i18n="case2.kicker">Case 02 · AI 电商视觉</p>
+      <p class="mono" data-i18n="case2.kicker">Case 04 · AI 电商视觉</p>
       <h2 id="case2-title" data-i18n="case2.title">一件衣服，不用再约拍</h2>
       <p data-i18n="case2.desc">模特、场景、光线和上身视频全部由 AI 生成。同一件衣服可以换模特、换场景，一次出齐主图、细节图和上身视频，适合上新快、SKU 多的店铺。</p>
       <ul class="facts">
@@ -594,11 +797,24 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
     <div class="sec-head">
       <div>
         <p class="mono" data-i18n="services.kicker">Services · 服务</p>
-        <h2 class="sec-title" id="services-title"><span data-i18n="services.title">四种口味，按需搭配</span><span class="en" data-i18n="services.en">Four flavours, mixed to order.</span></h2>
+        <h2 class="sec-title" id="services-title"><span data-i18n="services.title">五样小料，按需搭配</span><span class="en" data-i18n="services.en">Five toppings, mixed to order.</span></h2>
       </div>
       <p class="sec-intro" data-i18n="services.intro">每个项目都由导演先定方向，再用 AI 提速和放量。你拿到的是能直接投放的成片和素材，而不是一堆随机生成的图。</p>
     </div>
     <ul class="svc-list">
+      <li class="svc">
+        <span class="ball c-bean" aria-hidden="true"></span>
+        <h3><span data-i18n="svcw.name">AI 婚礼微电影</span><span class="mono">Wedding film</span></h3>
+        <div class="svc-desc">
+          <p data-i18n="svcw.desc">把新人的爱情故事做成一部电影，在婚礼当天的大屏上首映。可以直接选三生三世、民国、校园、旅拍等现成剧本，也可以先做故事访谈，再写只属于你们的原创剧本。</p>
+          <ul class="tags"><li data-i18n="svcw.t1">现成剧本 / 原创剧本</li><li data-i18n="svcw.t2">照片定妆</li><li data-i18n="svcw.t3">婚礼大屏版</li><li data-i18n="svcw.t4">竖版预告</li></ul>
+        </div>
+        <dl class="svc-meta">
+          <div><dt data-i18n="meta.cycle">参考周期</dt><dd data-i18n="svcw.cycle">按剧本评估</dd></div>
+          <div><dt data-i18n="meta.format">常用规格</dt><dd>16:9 · 9:16 · 1080p</dd></div>
+          <div><dt data-i18n="meta.work">代表作</dt><dd><a href="#case-wedding" class="js-play" data-work="hongsheng" data-i18n="w.hongsheng">《红绳》三生三世</a></dd></div>
+        </dl>
+      </li>
       <li class="svc">
         <span class="ball c-taro" aria-hidden="true"></span>
         <h3><span data-i18n="svc1.name">AI 广告片 / 品牌 TVC</span><span class="mono">Brand film · TVC</span></h3>
@@ -639,16 +855,16 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
         </dl>
       </li>
       <li class="svc">
-        <span class="ball c-bean" aria-hidden="true"></span>
+        <span class="ball c-milk" aria-hidden="true"></span>
         <h3><span data-i18n="svc4.name">AI 短剧 / 动画 / MV</span><span class="mono">Series · Animation · MV</span></h3>
         <div class="svc-desc">
-          <p data-i18n="svc4.desc">角色设定、分集剧本、分镜到成片。我们用角色一致性工作流，让同一个角色在几十个镜头里保持同一张脸、同一身衣服。</p>
-          <ul class="tags"><li data-i18n="svc4.t1">角色与世界观设定</li><li data-i18n="svc4.t2">漫剧 · 动画短片</li><li data-i18n="svc4.t3">MV · 音乐视频</li><li data-i18n="svc4.t4">角色一致性</li></ul>
+          <p data-i18n="svc4.desc">角色设定、分集剧本、分镜到成片。MV 按歌词逐句设计画面，歌词逐字对齐；短剧用角色一致性工作流，让同一个角色在几十个镜头里保持同一张脸、同一身衣服。</p>
+          <ul class="tags"><li data-i18n="svc4.t1">角色与世界观设定</li><li data-i18n="svc4.t2">漫剧 · 动画短片</li><li data-i18n="svc4.t3">MV · 歌词动效</li><li data-i18n="svc4.t4">角色一致性</li></ul>
         </div>
         <dl class="svc-meta">
-          <div><dt data-i18n="meta.cycle">参考周期</dt><dd data-i18n="svc4.cycle">按集评估</dd></div>
-          <div><dt data-i18n="meta.format">常用规格</dt><dd>9:16 · 2.39:1</dd></div>
-          <div><dt data-i18n="meta.work">代表作</dt><dd><a href="#works" class="js-play" data-work="24th" data-i18n="w.24th">《第二十四张》</a></dd></div>
+          <div><dt data-i18n="meta.cycle">参考周期</dt><dd data-i18n="svc4.cycle">按集 / 按曲评估</dd></div>
+          <div><dt data-i18n="meta.format">常用规格</dt><dd>16:9 · 9:16 · 2.39:1</dd></div>
+          <div><dt data-i18n="meta.work">代表作</dt><dd><a href="#case-mv" class="js-play" data-work="mv-tuwei" data-i18n="w.mv-tuwei">《土味情歌》</a> · <a href="#works" class="js-play" data-work="24th" data-i18n="w.24th">《第二十四张》</a></dd></div>
         </dl>
       </li>
     </ul>
@@ -713,6 +929,7 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
       <fieldset>
         <legend data-i18n="brief.type">想做什么？（可多选）</legend>
         <div class="opts">
+          <label class="opt"><input type="checkbox" name="type" id="bt-wed" value="svcw.name"><span data-i18n="svcw.name">AI 婚礼微电影</span></label>
           <label class="opt"><input type="checkbox" name="type" id="bt-tvc" value="svc1.name" checked><span data-i18n="svc1.name">AI 广告片 / 品牌 TVC</span></label>
           <label class="opt"><input type="checkbox" name="type" id="bt-ecom" value="svc2.name"><span data-i18n="svc2.name">AI 电商视觉</span></label>
           <label class="opt"><input type="checkbox" name="type" id="bt-social" value="svc3.name"><span data-i18n="svc3.name">社媒短视频</span></label>
@@ -752,6 +969,8 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
     <div class="foot-brand" aria-hidden="true"><svg class="foot-px" viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="5.5" width="11" height="11" rx="3.8"></rect><rect x="7" y="18.5" width="11" height="11" rx="3.8"></rect><rect x="7" y="31.5" width="11" height="11" rx="3.8"></rect><rect x="20" y="12" width="11" height="11" rx="3.8"></rect><rect x="20" y="25" width="11" height="11" rx="3.8"></rect><rect class="tip" x="33" y="18.5" width="11" height="11" rx="3.8"></rect></svg><div class="foot-mark">yuyuan<span>.</span></div></div>
     <nav class="foot-links" aria-label="Footer">
       <a href="#works" data-i18n="nav.works">作品</a>
+      <a href="#case-wedding" data-i18n="nav.wedding">婚礼</a>
+      <a href="#case-mv" data-i18n="nav.mv">MV</a>
       <a href="#case-songs" data-i18n="nav.cases">案例</a>
       <a href="#services" data-i18n="nav.services">服务</a>
       <a href="#process" data-i18n="nav.process">流程</a>
@@ -771,7 +990,60 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
 <script>
 /* ---------- 中 / EN ---------- */
 (function(){
+  // Edit the series copy here; both the tile and dialog read this block.
+  const SERIES_COPY = {
+    zh:{title:"AI 模特系列 · 一人四季",desc:"同一位模特 · 4 套服装 · 4 个场景 · 4 种动作，全部由商品图生成"},
+    en:{title:"AI Model Series · One Model, Four Seasons",desc:"One model. Four looks. Generated from product photos."}
+  };
+  for(const key of ["title","desc"]) document.querySelectorAll('[data-i18n="series.'+key+'"]').forEach(el=>el.textContent=SERIES_COPY.zh[key]);
   const EN = {
+    "w.winona":"WINONA · Bedtime skincare","w.winona.meta":"Product showcase · 15″ · Skincare routine",
+    "series.title":SERIES_COPY.en.title,
+    "series.desc":SERIES_COPY.en.desc,
+    "series.gray-collar":"Grey stand-collar coat","series.purple-pleats":"Lilac jacket",
+    "series.gray-vest":"Grey vest set","series.purple-tweed":"Purple tweed",
+
+    "nav.wedding":"Weddings","nav.mv":"MV",
+    "cat.wedding":"Wedding films","cat.mv":"Music videos",
+    "tag.ai169":"16:9 · AI-generated","badge.ai":"AI-generated",
+    "w.hongsheng":"The Red String: Three Lifetimes","w.hongsheng.meta":"AI wedding film · 1′10″ · Original score",
+    "w.xueguo":"Snow Country · pre-wedding MV","w.xueguo.meta":"AI wedding film · 45″ · Original score",
+    "w.kamakura":"Kamakura · pre-wedding MV","w.kamakura.meta":"AI wedding film · 23″ · Original score",
+    "more.title":"More pre-wedding films",
+    "w.xueguo.t":"Snow Country","w.xueguo.m2":"Hokkaido snowscape · 45″ · Original score","film.xueguo.hook":"A heart drawn in the fog on a tram window, two snow angels, and a wedding veil on the hilltop.",
+    "w.kamakura.t":"Kamakura","w.kamakura.m2":"Seaside tram · 23″ · Original score","film.kamakura.hook":"School uniforms, a bicycle and a seaside level crossing, and later the same crossing in a wedding dress.",
+    "w.mv-tuwei":"Country Love Song","w.mv-tuwei.meta":"Narrative MV · 3′09″ · Small-town romance",
+    "mv.tuwei.meta":"Photoreal AI · small-town romance · 3′09″","mv.tuwei.hook":"The mechanic next door puts on a peony-print suit, chases her from the corner shop to the rapeseed fields, and ends with a village wedding.",
+    "tile.open":"Cold open","tag.mg":"16:9 · Motion graphics",
+    "w.mv-zhouxuan":"Zhou Xuan","w.mv-zhouxuan.meta":"Narrative MV · 1930s Shanghai · full film 5′24″ · 30″ cold open here",
+    "mv.zhouxuan.kicker":"Narrative MV · 1930s Shanghai · 5′24″",
+    "mv.zhouxuan.hook":"Shanghai, 1936: a pianist lowers a song by half a key for a singer who can’t reach the top note. To protect him she tells one lie. Forty-nine years later a tin box arrives in Hong Kong, with the truth written on the back of the score.",
+    "mv.zhouxuan.note":"The full film is set to a commercial song, so this site shows only the 30-second cold open, with its own dialogue and piano.",
+    "w.oops":"Oops · Product animation","w.oops.meta":"Motion graphics · 1′04″ · Live on the client’s website",
+    "casew.kicker":"Case 01 · AI wedding film","casew.title":"The Red String: you, in every lifetime",
+    "casew.desc":"A 70-second pre-wedding film. One red string runs from a Ming-style wedding in a Jiangnan water town to a Republic-era photo studio and a 1980 open-air cinema, then ties back to a greenhouse wedding today. Every era gets its own costumes, sets and light, and the couple keeps the same faces across all four.",
+    "casew.f1":"Pre-wedding film","casew.f2":"Three lives and now","casew.f3":"Wedding big screen",
+    "casew.cap":"“One red string, three lifetimes.”",
+    "life1.name":"Life one · Jiangnan","life1.desc":"Ming-style robes · water-town procession",
+    "life2.name":"Life two · Republic era","life2.desc":"Changshan and qipao · photo studio",
+    "life3.name":"Life three · 1980","life3.desc":"Bicycles · open-air cinema",
+    "life4.name":"This life","life4.desc":"Greenhouse wedding · the string is still there",
+    "vow.title":"We can make one for you",
+    "vow1.name":"Pick a script, or tell us your story","vow1.desc":"Choose a ready-made script such as Three Lifetimes, Republic Shanghai, campus or travel. For a story that is only yours, we start with an interview and write an original script.",
+    "vow2.name":"A few photos, then a costume test","vow2.desc":"Send us a few everyday photos. We make a look test for each era first, and generate the film only after you’re happy with it.",
+    "vow3.name":"A premiere on the wedding screen","vow3.desc":"You get a landscape cut for the big screen on the day, plus an optional vertical teaser to share beforehand.",
+    "vow.fine":"The couple in The Red String are fictional, AI-generated characters. All our wedding films use original scores, and every film we deliver is labelled as AI-generated.",
+    "vow.cta":"Tell us about your wedding",
+    "casemv.kicker":"Case 02 · Original AI music videos","casemv.title":"One song, one whole world",
+    "casemv.desc":"We make two kinds of music video. One uses photoreal AI footage to tell a complete story, like the 1930s Shanghai drama Zhou Xuan or the small-town romance Country Love Song. The other is frame-by-frame animation, each with an original lead character and a running gag, with lyrics aligned word by word so each word lights up as it is sung.",
+    "casemv.f1":"Music videos","casemv.f2":"Photoreal · animated","casemv.f3b":"Word","casemv.f3":"by-word lyric sync",
+    "casemv.note":"Four of them are below; open any one to watch. Songs remain the property of their writers; Yuyuan made the visuals, characters and lyric animation.",
+    "w.mv-youdang":"Two-Faced","w.mv-youdang.meta":"Shadow puppets × ink on rice paper · 2′40″","mv.youdang.hook":"A pious face for the crowd, coins counted backstage: one puppet, two faces.",
+    "w.mv-zishu":"Purple Yam Taro","w.mv-zishu.meta":"Sweet sticker style · 2′06″","mv.zishu.hook":"In Chinese, “purple yam taro” sounds just like “only yours”.",
+    "svcw.name":"AI wedding film",
+    "svcw.desc":"We turn a couple’s love story into a film that premieres on the big screen at their wedding. Pick a ready-made script such as Three Lifetimes, Republic Shanghai, campus or travel, or start with a story interview and get an original script written just for you.",
+    "svcw.t1":"Ready-made or original script","svcw.t2":"Photo-based look test","svcw.t3":"Big-screen wedding cut","svcw.t4":"Vertical teaser","svcw.cycle":"Quoted per script",
+
     "skip":"Skip to content",
     "nav.services":"Services","nav.works":"Work","nav.cases":"Cases","nav.process":"Process","nav.team":"Team","nav.contact":"Contact",
     "cta.short":"Start a project","cta.long":"Tell us about your project","cta.works":"All work","hero.play":"Watch the full piece",
@@ -779,7 +1051,7 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
     "hero.title":'<span class="line">We cook ideas</span><span class="line">into <span class="accent">frames</span>.</span>',
     "hero.sub":"Yuyuan means taro balls: soft, chewy, made by hand.",
     "hero.lede":"Yuyuan is an AIGC creative team. We plug directing, art and editing experience into generative-AI pipelines to make brand films, e-commerce visuals, social video and animated series.",
-    "services.kicker":"Services","services.title":"Four flavours, mixed to order","services.en":"Order one, or the whole bowl.",
+    "services.kicker":"Services","services.title":"Five toppings, mixed to order","services.en":"Order one, or the whole bowl.",
     "services.intro":"A director sets the direction on every project, and AI brings the speed and volume. You get finished films and assets ready to run, not a pile of random generations.",
     "meta.cycle":"Typical timeline","meta.format":"Common formats",
     "svc1.name":"AI brand film / TVC",
@@ -792,12 +1064,12 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
     "svc3.desc":"Content at volume for Douyin, Xiaohongshu and TikTok: topics, scripts, digital-human presenters and AI edits, delivered as a monthly content pack. We can also set up your account matrix.",
     "svc3.t1":"Topics & scripts","svc3.t2":"Digital-human presenters","svc3.t3":"AI edits","svc3.t4":"Account matrix setup","svc3.cycle":"Monthly packs",
     "svc4.name":"AI series / animation / MV",
-    "svc4.desc":"Characters, episode scripts, storyboards and final cuts. Our character-consistency pipeline keeps the same face and the same outfit across dozens of shots.",
-    "svc4.t1":"Characters & world-building","svc4.t2":"Short series · animated shorts","svc4.t3":"Music videos","svc4.t4":"Character consistency","svc4.cycle":"Quoted per episode",
+    "svc4.desc":"Characters, episode scripts, storyboards and final cuts. Music videos are designed line by line with word-by-word lyric sync; for series, our character-consistency pipeline keeps the same face and the same outfit across dozens of shots.",
+    "svc4.t1":"Characters & world-building","svc4.t2":"Short series · animated shorts","svc4.t3":"MV · lyric animation","svc4.t4":"Character consistency","svc4.cycle":"Quoted per episode or song",
     "works.kicker":"Work","works.title":"Every frame, freshly made","works.en":"Shown at the ratio each piece ships in.",
-    "works.intro":"Every film and image here was made by Yuyuan with AI, shown at its real delivery ratio: 2.39:1 for cinematic shorts, 16:9 for brand films, 9:16 for vertical video, 3:4 for product images.",
+    "works.intro":"Our best AIGC work: wedding films, narrative music videos, shorts and brand films, all made by Yuyuan with AI and shown at the ratio each one ships in.",
     "works.hint":"Open any tile to watch the full piece",
-    "cat.all":"All","cat.tvc":"Brand film","cat.ecom":"E-commerce","cat.social":"Social video","cat.story":"Series · Animation · MV",
+    "cat.all":"All","cat.tvc":"Brand film","cat.ecom":"E-commerce","cat.social":"Social video","cat.story":"Series · Animation",
     "tile.play":"Full piece",
     "w.24th":"The 24th Shot","w.24th.meta":"AI short film · 2′51″ · Coming of age",
     "w.grwm":"Golden Hour Try-On","w.grwm.meta":"Social video · 29″ · AI model try-on",
@@ -805,11 +1077,14 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
     "w.boc":"BOC UnionPay Credit Card × Flywire","w.boc.meta":"Promo film · 1′32″ · Study-abroad payments",
     "w.matcha":"AI Model · Matcha Tweed Set","w.matcha.meta":"E-commerce · 6 images + 10″ try-on video",
     "w.ivory":"AI Model · Ivory Jacquard Suit","w.ivory.meta":"E-commerce · 6 images + 8″ try-on video",
+    "w.purple-pleats":"AI Model · Lilac Jacket & Pleated Skirt","w.purple-pleats.meta":"AIGC fashion showcase · Product-image-to-video · 14″",
+    "w.gray-vest":"AI Model · Grey Vest & Wide-Leg Set","w.gray-vest.meta":"AIGC fashion showcase · Product-image-to-video · 14″",
+    "w.purple-tweed":"AI Model · Purple Tweed & Mini Skirt","w.purple-tweed.meta":"AIGC fashion showcase · Product-image-to-video · 14″",
     "w.book":"Shanxia Yousong · Autumn Lookbook","w.book.meta":"Brand visuals · cover and scenes","w.book.tag":"Lookbook · 7",
-    "case1.kicker":"Case 01 · Brand film + lookbook","case1.title":"Shanxia Yousong: keep today, slowly",
+    "case1.kicker":"Case 03 · Brand film + lookbook","case1.title":"Shanxia Yousong: keep today, slowly",
     "case1.desc":"A 25-second brand film about a slow afternoon: writing a note, greeting a cat, passing a street guitarist. The same light and texture carry into the autumn lookbook, delivered with a cover, scene shots and product shots.",
     "case1.f1":"Brand film","case1.f2":"16:9 master","case1.f3":"Lookbook images","case1.cap":"“Keep today, slowly.”","book.cover":"VOL.01 · Cover",
-    "case2.kicker":"Case 02 · AI e-commerce visuals","case2.title":"One garment, no photo shoot",
+    "case2.kicker":"Case 04 · AI e-commerce visuals","case2.title":"One garment, no photo shoot",
     "case2.desc":"Models, sets, light and try-on videos are all generated with AI. The same garment can get a new model or a new set, so main images, detail shots and try-on video arrive together. Built for stores that launch fast and carry many SKUs.",
     "case2.f1":"Outfits","case2.f2":"Main and detail images","case2.f3":"Try-on videos",
     "look1.name":"Matcha tweed set","look1.desc":"Arcades, low afternoon sun and leaf shadows. Front and back full-length, seated, half-length and a close-up of the jewelled neckline, plus a 10-second try-on video.",
@@ -858,6 +1133,11 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
     if (d.i18nHtml && !(d.i18nHtml in ZH_H)) ZH_H[d.i18nHtml] = el.innerHTML;
     if (d.i18nPh && !(d.i18nPh in ZH_P)) ZH_P[d.i18nPh] = el.getAttribute("placeholder") || "";
   });
+  Object.assign(ZH_T,{
+    "w.purple-tweed":"AI 模特 · 紫色粗花呢","w.purple-tweed.meta":"电商视觉 · 14″ · 商品图生成",
+    "w.purple-pleats":"AI 模特 · 淡紫短外套","w.purple-pleats.meta":"电商视觉 · 14″ · 商品图生成",
+    "w.gray-vest":"AI 模特 · 灰马甲套装","w.gray-vest.meta":"电商视觉 · 14″ · 商品图生成"
+  });
   let lang = "zh";
   function apply(next){
     lang = next === "en" ? "en" : "zh";
@@ -899,19 +1179,20 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const KIND = {
     short:{zh:"AI 短片", en:"AI short film"}, brand:{zh:"品牌片", en:"Brand film"}, promo:{zh:"推广片", en:"Promo film"},
-    social:{zh:"社媒短视频", en:"Social video"}, ecom:{zh:"电商视觉", en:"E-commerce"}
+    social:{zh:"社媒短视频", en:"Social video"}, ecom:{zh:"电商视觉", en:"E-commerce"},
+    wedding:{zh:"AI 婚礼微电影", en:"AI wedding film"}, mv:{zh:"AI 原创 MV", en:"Original AI music video"}
   };
+  const WED = {src:"media/hero-hongsheng.mp4", poster:"media/hero-hongsheng.jpg", work:"hongsheng", kind:"wedding", ratio:"16:9", dur:"1′10″", off:7.7};
+  const SNOW = {src:"media/hero-xueguo.mp4", poster:"media/hero-xueguo.jpg", work:"xueguo", kind:"wedding", ratio:"16:9", dur:"45″", off:0};
+  const SEA = {src:"media/hero-kamakura.mp4", poster:"media/hero-kamakura.jpg", work:"kamakura", kind:"wedding", ratio:"16:9", dur:"23″", off:0};
+  const ZX = {src:"media/mv-zhouxuan.mp4", poster:"media/mv-zhouxuan.jpg", work:"mv-zhouxuan", kind:"mv", ratio:"16:9", dur:"5′24″", off:0};
+  const TW = {src:"media/mv-tuwei.mp4", poster:"media/mv-tuwei.jpg", work:"mv-tuwei", kind:"mv", ratio:"16:9", dur:"3′09″", off:0};
   const WIDE = [
+    WED, SNOW, ZX, SEA, TW,
     {src:"media/hero-24th.mp4", poster:"media/hero-24th.jpg", work:"24th", kind:"short", ratio:"2.39:1", dur:"2′51″", off:140.8},
-    {src:"media/hero-songs.mp4", poster:"media/hero-songs.jpg", work:"songs", kind:"brand", ratio:"16:9 · 4K", dur:"25″", off:8.6},
-    {src:"media/hero-boc-london.mp4", poster:"media/hero-boc-london.jpg", work:"boc", kind:"promo", ratio:"16:9 · 4K", dur:"1′32″", off:29.6},
-    {src:"media/hero-boc-sydney.mp4", poster:"media/hero-boc-sydney.jpg", work:"boc", kind:"promo", ratio:"16:9 · 4K", dur:"1′32″", off:37.6}
+    {src:"media/hero-songs.mp4", poster:"media/hero-songs.jpg", work:"songs", kind:"brand", ratio:"16:9 · 4K", dur:"25″", off:8.6}
   ];
-  const TALL = [
-    {src:"media/v-grwm.mp4", poster:"media/v-grwm.jpg", work:"grwm", kind:"social", ratio:"9:16", dur:"29″", off:22.8},
-    {src:"media/v-matcha.mp4", poster:"media/v-matcha.jpg", work:"matcha", kind:"ecom", ratio:"3:4", dur:"10″", off:0},
-    {src:"media/v-ivory.mp4", poster:"media/v-ivory.jpg", work:"ivory", kind:"ecom", ratio:"3:4", dur:"8″", off:0}
-  ];
+  const TALL = [WED, SNOW, ZX, SEA, TW];
   const TRANS = 1.2;
   let list = null, vids = [], cur = 0, nxt = -1, transStart = 0, visible = true, shown = false, shownIdx = 0;
 
@@ -919,13 +1200,18 @@ html[lang="en"] :is(.svc,.step,.flavor) h3 .mono,html[lang="en"] .work-cap .en{d
   const FS = `precision mediump float;
 uniform sampler2D uA,uB;uniform vec2 uRes,uSa,uSb;uniform float uT,uTime;
 vec2 cover(vec2 uv,vec2 s){float ra=uRes.x/uRes.y,rv=s.x/max(s.y,1.);vec2 k=ra>rv?vec2(1.,rv/ra):vec2(ra/rv,1.);return (uv-.5)*k+.5;}
+vec3 sampleClip(sampler2D tex,vec2 uv,vec2 s){
+  float ra=uRes.x/uRes.y,rv=s.x/max(s.y,1.);
+  if(rv<.8 && ra>.8){vec2 fit=(uv-.5)*vec2(ra/rv,1.)+.5;if(fit.x<0. || fit.x>1.)return vec3(.078,.063,.051);return texture2D(tex,fit).rgb;}
+  return texture2D(tex,cover(uv,s)).rgb;
+}
 float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 void main(){
   vec2 fc=gl_FragCoord.xy;float k=sin(3.14159265*uT);
   float px=floor(mix(1.,uRes.y/14.,k*k));
   vec2 blk=floor(fc/max(px,1.));
   vec2 uv=px<1.5?fc/uRes:((blk+.5)*px)/uRes;
-  vec3 a=texture2D(uA,cover(uv,uSa)).rgb, b=texture2D(uB,cover(uv,uSb)).rgb;
+  vec3 a=sampleClip(uA,uv,uSa), b=sampleClip(uB,uv,uSb);
   float r=h(blk);
   float sw=clamp((uT-.22-r*.5)/.08,0.,1.);
   vec3 col=mix(a,b,sw);
@@ -980,6 +1266,7 @@ void main(){
     if (i === undefined) i = shownIdx;
     shownIdx = i;
     const c = list[i], lang = (window.YY && YY.lang) || "zh";
+    hero.classList.toggle("portrait-reel", c.ratio === "9:16");
     nowTitle.textContent = window.YY ? YY.text("w." + c.work) : c.work;
     nowMeta.innerHTML = "<span>" + KIND[c.kind][lang] + "</span><span>" + c.ratio + "</span><span>" + c.dur + "</span>";
     hudIdx.textContent = String(i + 1).padStart(2, "0");
@@ -1064,12 +1351,24 @@ void main(){
 /* ---------- player: full-length pieces open in a dialog, with sound ---------- */
 window.YYPlayer = (function(){
   const WORKS = {
+    hongsheng:    {full:"media/full-hongsheng.mp4", poster:"media/hero-hongsheng.jpg", tall:false},
+    "mv-youdang": {full:"media/full-mv-youdang.mp4", poster:"media/mv-youdang.jpg", tall:false},
+    "mv-zishu":   {full:"media/full-mv-zishu.mp4", poster:"media/mv-zishu.jpg", tall:false},
+    "mv-zhouxuan": {full:"media/full-mv-zhouxuan.mp4", poster:"media/mv-zhouxuan.jpg", tall:false},
+    "mv-tuwei":   {full:"media/full-mv-tuwei.mp4", poster:"media/mv-tuwei.jpg", tall:false},
+    xueguo:       {full:"media/full-xueguo.mp4", poster:"media/hero-xueguo.jpg", tall:false},
+    kamakura:     {full:"media/full-kamakura.mp4", poster:"media/hero-kamakura.jpg", tall:false},
+    oops:         {full:"media/full-oops.mp4", poster:"media/tile-oops.jpg", tall:false},
+    winona: {full:"media/full-winona.mp4",poster:"img/winona-cover.jpg",tall:true},
     "24th": {full:"media/full-24th.mp4", poster:"media/full-24th.jpg", tall:false},
     songs:  {full:"media/full-songs.mp4", poster:"media/full-songs.jpg", tall:false},
     boc:    {full:"media/full-boc.mp4", poster:"media/full-boc.jpg", tall:false},
-    grwm:   {full:"media/full-grwm.mp4", poster:"media/full-grwm.jpg", tall:true},
     matcha: {full:"media/v-matcha.mp4", poster:"media/v-matcha.jpg", tall:true},
-    ivory:  {full:"media/v-ivory.mp4", poster:"media/v-ivory.jpg", tall:true}
+    ivory:  {full:"media/v-ivory.mp4", poster:"media/v-ivory.jpg", tall:true},
+    grwm:   {full:"media/full-grwm.mp4", poster:"media/full-grwm.jpg", tall:true},
+    "purple-pleats": {full:"media/full-purple-pleats.mp4", poster:"img/purple-pleats-cover.jpg", tall:true},
+    "gray-vest": {full:"media/full-gray-vest.mp4", poster:"img/gray-vest-cover.jpg", tall:true},
+    "purple-tweed": {full:"media/full-purple-tweed.mp4", poster:"img/purple-tweed-cover.jpg", tall:true}
   };
   const dlg = document.getElementById("player"), vid = document.getElementById("player-video");
   const title = document.getElementById("player-title"), meta = document.getElementById("player-meta");
@@ -1104,7 +1403,7 @@ window.YYPlayer = (function(){
       const v = e.target;
       if (e.isIntersecting) { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause();
     }), {threshold: 0.2});
-    document.querySelectorAll(".mosaic video, .expand-card video, .look video").forEach(v => io.observe(v));
+    document.querySelectorAll(".mosaic video, .expand-card video, .look video, .mv-grid video, .film-pair video").forEach(v => io.observe(v));
   }
   const mosaic = document.getElementById("mosaic");
   const chips = [...document.querySelectorAll(".chip")];
@@ -1115,24 +1414,25 @@ window.YYPlayer = (function(){
     mosaic.querySelectorAll(".tile").forEach(t => t.classList.toggle("match", f === "all" || t.dataset.cat === f));
   }));
 
-  /* case 01: the film card opens up to full-bleed as you scroll */
-  const ex = document.getElementById("expand-songs"), card = document.getElementById("expand-card");
-  const sticky = ex.querySelector(".expand-sticky");
+  /* case films (wedding, Shanxia Yousong): each card opens up to full-bleed as you scroll */
+  const expands = [...document.querySelectorAll(".expand")].map(ex => ({ex, card: ex.querySelector(".expand-card"), sticky: ex.querySelector(".expand-sticky")}));
   let ticking = false;
   function update(){
     ticking = false;
-    const r = ex.getBoundingClientRect();
-    const run = r.height - sticky.offsetHeight;
-    if (run <= 0) { card.style.setProperty("--p", 1); return; }
-    const top = parseFloat(getComputedStyle(sticky).top) || 64;
-    const raw = (top - r.top) / run;
-    card.style.setProperty("--p", Math.max(0, Math.min(1, raw / 0.7)).toFixed(4));
+    expands.forEach(({ex, card, sticky}) => {
+      const r = ex.getBoundingClientRect();
+      const run = r.height - sticky.offsetHeight;
+      if (run <= 0) { card.style.setProperty("--p", 1); return; }
+      const top = parseFloat(getComputedStyle(sticky).top) || 64;
+      const raw = (top - r.top) / run;
+      card.style.setProperty("--p", Math.max(0, Math.min(1, raw / 0.7)).toFixed(4));
+    });
   }
   if (!reduce) {
     addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, {passive: true});
     addEventListener("resize", update);
     update();
-  } else card.style.setProperty("--p", 1);
+  } else expands.forEach(({card}) => card.style.setProperty("--p", 1));
 })();
 </script>
 <script>
